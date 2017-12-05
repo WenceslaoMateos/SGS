@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title>Select Features</title>
+      <link rel="stylesheet" href="https://openlayers.org/en/v4.5.0/css/ol.css" type="text/css">
+      <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+      <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+      <script src="https://openlayers.org/en/v4.5.0/build/ol.js"></script>
+    </head>
+    <body>
+      <div id="map" class="map"></div>
+      <form class="form-inline">
+        <label>  &nbsp;</label>
+          <select id="type" class="form-control">
+          </select>
+        <span id="status">&nbsp;</span>
+      </form>
+      <script>
+      var projection = ol.proj.get('EPSG:3857');
+
+      var openStreetMap = new ol.layer.Tile({
+        source: new ol.source.OSM({
+          attributions: [
+            'All maps © <a href="http://www.openstreetmap.org/">OpenSeaMap</a>',
+            ol.source.OSM.ATTRIBUTION
+          ],
+          opaque: false,
+          url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
+        })
+      });
+
+      var openSeaMapLayer = new ol.layer.Tile({
+        source: new ol.source.OSM({
+          attributions: [
+            'All maps © <a href="http://www.openseamap.org/">OpenSeaMap</a>',
+            ol.source.OSM.ATTRIBUTION
+          ],
+          opaque: false,
+          url: 'https://tiles.openseamap.org/seamark/{z}/{x}/{y}.png'
+        })
+      });
+
+      var vector = new ol.layer.Vector({
+        source: new ol.source.Vector({
+          url: 'http://localhost/ProtoMap/dato2kml/DataRLAbvE.kml',
+          format: new ol.format.KML({extractTracks: true})
+        })
+      });
+
+      var map = new ol.Map({
+        layers: [openStreetMap , openSeaMapLayer , vector],
+        target: 'map',
+        controls: ol.control.defaults({
+          attributionOptions: /** @type {olx.control.AttributionOptions} */ ({collapsible: false})
+        }),
+        view: new ol.View({
+          maxZoom: 18,
+          center: ol.proj.transform([8.5550875,53.566916333333], 'EPSG:4326', 'EPSG:3857'),
+          zoom: 15
+        })
+      });
+
+      var select = null;
+
+      var selectPointerMove = new ol.interaction.Select({
+        condition: ol.events.condition.pointerMove
+      });
+
+      var selectElement = document.getElementById('type');
+
+      var changeInteraction = function() {
+        if (select !== null) {
+          map.removeInteraction(select);
+        }
+        select = selectPointerMove;
+        if (select !== null) 
+        {
+          map.addInteraction(select);
+          select.on('select', function(e) {document.getElementById('status').innerHTML = e.target.getFeatures().get(0).getGeometry();});
+        }
+      };
+
+      selectElement.onchange = changeInteraction;
+      changeInteraction();
+    </script>
+  </body>
+</html>
