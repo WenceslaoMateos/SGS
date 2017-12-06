@@ -42,8 +42,8 @@
 
       var vector = new ol.layer.Vector({
         source: new ol.source.Vector({
-          url: './DataRLAbvE.kml',
-          format: new ol.format.KML({extractTracks: true})
+          url: './multitrack.kml',
+          format: new ol.format.KML() 
         })
       });
 
@@ -56,27 +56,28 @@
         view: new ol.View({
           maxZoom: 18,
           center: ol.proj.transform([8.5550875,53.566916333333], 'EPSG:4326', 'EPSG:3857'),
-          zoom: 15
+          zoom: 2
         })
       });
 
       var select = null;
 
-      var selectPointerMove = new ol.interaction.Select({
-        condition: ol.events.condition.pointerMove
-      });
-
       var selectElement = document.getElementById('type');
+
+      function hacerCuandoSeleccione(that)
+      {
+          console.log("hola "+that);
+      }
 
       var changeInteraction = function() {
         if (select !== null) {
           map.removeInteraction(select);
         }
-        select = selectPointerMove;
+        select = new ol.interaction.Select({condition: ol.events.condition.pointerMove});
         if (select !== null) 
         {
           map.addInteraction(select);
-          select.on('select', function(e) {document.getElementById('status').innerHTML = e.target.getFeatures().get(0).getGeometry();});
+          select.on('select', hacerCuandoSeleccione,this);
         }
       };
 
