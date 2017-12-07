@@ -6,22 +6,94 @@
       <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
       <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
       <script src="https://openlayers.org/en/v4.5.0/build/ol.js"></script>
-    </head>
+      <style>
+          .ol-popup {
+            position: absolute;
+            background-color: white;
+            -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+            filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #cccccc;
+            bottom: 12px;
+            left: -50px;
+            min-width: 280px;
+          }
+          .ol-popup:after, .ol-popup:before {
+            top: 100%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+          }
+          .ol-popup:after {
+            border-top-color: white;
+            border-width: 10px;
+            left: 48px;
+            margin-left: -10px;
+          }
+          .ol-popup:before {
+            border-top-color: #cccccc;
+            border-width: 11px;
+            left: 48px;
+            margin-left: -11px;
+          }
+          .ol-popup-closer {
+            text-decoration: none;
+            position: absolute;
+            top: 2px;
+            right: 8px;
+          }
+          .ol-popup-closer:after {
+            content: "X";
+          }
+        </style>
+        </head>
     <body>
       <div id="map" class="map"></div>
-      <form class="form-inline">
-        <label>  &nbsp;</label>
-          <select id="type" class="form-control">
-          </select>
-        <span id="status">&nbsp;</span>
-      </form>
-      <script>
-      var projection = ol.proj.get('EPSG:3857');
+      <div id="popup" class="ol-popup">
+          <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+          <div id="popup-content"></div>
+        </div>
+          <script>
+
+     /**
+       * Elements that make up the popup.
+       */
+       var container = document.getElementById('popup');
+      var content = document.getElementById('popup-content');
+      var closer = document.getElementById('popup-closer');
+
+
+      /**
+       * Create an overlay to anchor the popup to the map.
+       */
+      var overlay = new ol.Overlay({
+        element: container,
+        autoPan: true,
+        autoPanAnimation: {
+          duration: 250
+        }
+      });
+
+
+      /**
+       * Add a click handler to hide the popup.
+       * @return {boolean} Don't follow the href.
+       */
+      closer.onclick = function() {
+        overlay.setPosition(undefined);
+        closer.blur();
+        return false;
+      };
+
 
       var openStreetMap = new ol.layer.Tile({
         source: new ol.source.OSM({
           attributions: [
-            'All maps © <a href="http://www.openstreetmap.org/">OpenSeaMap</a>',
+            'All maps <a href="http://www.openstreetmap.org/">OpenStreetMap</a>',
             ol.source.OSM.ATTRIBUTION
           ],
           opaque: false,
@@ -32,7 +104,7 @@
       var openSeaMapLayer = new ol.layer.Tile({
         source: new ol.source.OSM({
           attributions: [
-            'All maps © <a href="http://www.openseamap.org/">OpenSeaMap</a>',
+            'All maps <a href="http://www.openseamap.org/">OpenSeaMap</a>',
             ol.source.OSM.ATTRIBUTION
           ],
           opaque: false,
@@ -50,9 +122,7 @@
       var map = new ol.Map({
         layers: [openStreetMap , openSeaMapLayer , vector],
         target: 'map',
-        controls: ol.control.defaults({
-          attributionOptions: /** @type {olx.control.AttributionOptions} */ ({collapsible: false})
-        }),
+        overlays: [overlay],
         view: new ol.View({
           maxZoom: 18,
           center: ol.proj.transform([8.5550875,53.566916333333], 'EPSG:4326', 'EPSG:3857'),
@@ -60,14 +130,19 @@
         })
       });
 
-      var select = null;
-
-      var selectElement = document.getElementById('type');
-
       function hacerCuandoSeleccione(that)
       {
-          console.log("hola "+that);
+        if (that.selected.length >= 1)
+          {
+          var geometria = that.selected[0].getGeometry();
+          var posicion = geometria.getCoordinates();  
+          overlay.setPosition(posicion[0]);
+          var propiedades = that.selected[0].getProperties()
+          content.innerHTML = "Fecha: " + propiedades.when;
+          }
       }
+
+      var select = null;
 
       var changeInteraction = function() {
         if (select !== null) {
@@ -81,7 +156,7 @@
         }
       };
 
-      selectElement.onchange = changeInteraction;
+      map.on = changeInteraction;
       changeInteraction();
     </script>
   </body>

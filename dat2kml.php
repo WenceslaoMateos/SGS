@@ -24,11 +24,11 @@ $kml[] = ' xmlns:gx="http://www.google.com/kml/ext/2.2">';
 $kml[] = '  <Document>';
 $kml[] = '      <Style id="EstiloLinea">';
 $kml[] = '          <LineStyle>';
-$kml[] = '              <color>FF000000</color>';
-$kml[] = '              <width>2</width>';
+$kml[] = '              <color>80000000</color>';
+$kml[] = '              <width>5</width>';
 $kml[] = '          </LineStyle>';
 $kml[] = '          <PolyStyle>';
-$kml[] = '              <color>FF000000</color>';
+$kml[] = '              <color>80000000</color>';
 $kml[] = '          </PolyStyle>';
 $kml[] = '      </Style>';
 
@@ -63,6 +63,9 @@ while ($i < $n)
     $kml[] = '          <ExtendedData>';
     $kml[] = '              <Data name="when">';
     $kml[] = '                  <value>' . date2when(trim($arrayLinea[0]),trim($arrayLinea[1])) . '</value>';
+    $kml[] = '              </Data>';
+    $kml[] = '              <Data name="point">';
+    $kml[] = '                  <value>' . GPS2degree(trim($arrayLinea[9])) . ',' . GPS2degree(trim($arrayLinea[8])) . '</value>';
     $kml[] = '              </Data>';
     $kml[] = '          </ExtendedData>';
     $kml[] = '      </Placemark>';
