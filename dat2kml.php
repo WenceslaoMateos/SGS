@@ -24,45 +24,49 @@ $kml[] = ' xmlns:gx="http://www.google.com/kml/ext/2.2">';
 $kml[] = '  <Document>';
 $kml[] = '      <Style id="EstiloLinea">';
 $kml[] = '          <LineStyle>';
-$kml[] = '              <color>50000000</color>';
-$kml[] = '              <width>15</width>';
+$kml[] = '              <color>FF000000</color>';
+$kml[] = '              <width>2</width>';
 $kml[] = '          </LineStyle>';
 $kml[] = '          <PolyStyle>';
-$kml[] = '              <color>50000000</color>';
+$kml[] = '              <color>FF000000</color>';
 $kml[] = '          </PolyStyle>';
 $kml[] = '      </Style>';
 
 // Iterates through the rows, printing a node for each row.
-$kml[] = '      <Placemark>';
-$kml[] = '          <name>Recorrido loco de un barco.</name>';
-$kml[] = '          <description>Una linea de un barco sobre el mar</description>';
-$kml[] = '          <styleUrl>#EstiloLinea</styleUrl>';
 
 $lineas = file('DataRLAbvE.dat');
 $n = count($lineas);
-
-$kml[] = '          <gx:Track>';
-for ($i=1; $i < $n; $i++)
+$i = 2;
+$foldersize = 20;
+while ($i < $n)
 {
-    $arrayLinea = explode("\t" , $lineas[$i]); //genero un array con las mediciones separadas
-    if (!empty(trim($arrayLinea[0])) && !empty(trim($arrayLinea[1])) && !empty(trim($arrayLinea[8])) && !empty(trim($arrayLinea[9]))) //me fijo que ningun dato este vacio
+    $kml[] = '      <Placemark>';
+    $kml[] = '          <name>Recorrido loco de un barco.</name>';
+    $kml[] = '          <description>Una linea de un barco sobre el mar</description>';
+    $kml[] = '          <styleUrl>#EstiloLinea</styleUrl>';
+    $kml[] = '          <LineString>';
+    $kml[] = '              <coordinates>';
+    $j = 0;
+    $i--;
+    while (($j < $foldersize) && ($i < $n)) //me fijo que ningun dato este vacio
     {
-        $kml[] = "              <when>" . date2when(trim($arrayLinea[0]),trim($arrayLinea[1])) . "</when>";
+        $arrayLinea = explode("\t" , $lineas[$i]); //genero un array con las mediciones separadas
+        if (!empty(trim($arrayLinea[0])) && !empty(trim($arrayLinea[1])) && !empty(trim($arrayLinea[8])) && !empty(trim($arrayLinea[9])))
+        {
+            $kml[] = '              ' . GPS2degree(trim($arrayLinea[9])) . ',' . GPS2degree(trim($arrayLinea[8]));
+            $j++;
+        }
+        $i++;
     }
+    $kml[] = '              </coordinates>';
+    $kml[] = '          </LineString>';
+    $kml[] = '          <ExtendedData>';
+    $kml[] = '              <Data name="when">';
+    $kml[] = '                  <value>' . date2when(trim($arrayLinea[0]),trim($arrayLinea[1])) . '</value>';
+    $kml[] = '              </Data>';
+    $kml[] = '          </ExtendedData>';
+    $kml[] = '      </Placemark>';
 }
-
-for ($i=1; $i < $n; $i++)
-{
-    $arrayLinea = explode("\t" , $lineas[$i]); //genero un array con las mediciones separadas
-    if (!empty(trim($arrayLinea[0])) && !empty(trim($arrayLinea[1])) && !empty(trim($arrayLinea[8])) && !empty(trim($arrayLinea[9]))) //me fijo que ningun dato este vacio
-    {
-        $kml[] = "              <gx:coord>" . GPS2degree(trim($arrayLinea[9])) . " " . GPS2degree(trim($arrayLinea[8])) . " 0</gx:coord>";     //agendo la latitud y longitud de esa linea
-    }
-} 
-$kml[] = '          </gx:Track>';
-
-
-$kml[] = '      </Placemark>';
 // End XML file
 $kml[] = ' </Document>';
 $kml[] = '</kml>';
