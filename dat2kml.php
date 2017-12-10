@@ -15,8 +15,10 @@ function GPS2degree($coordenada)
 
 function date2when($fecha,$hora)
 {
-    return join("-", explode ("/" , $fecha)) . "T" . $hora . "Z";// setea la fecha en un formato tal que puede ser leida por el tracker
+    return join("-", explode ("/" , $fecha)) . "T" . $hora . "Z";
 }
+
+$name = 'DataRLAbvE.kml';
 
 $kml = array('<?xml version="1.0" encoding="UTF-8"?>');
 $kml[] = '<kml xmlns="http://www.opengis.net/kml/2.2"';
@@ -32,9 +34,7 @@ $kml[] = '              <color>80000000</color>';
 $kml[] = '          </PolyStyle>';
 $kml[] = '      </Style>';
 
-// Iterates through the rows, printing a node for each row.
-
-$lineas = file('DataRLAbvE.dat');
+$lineas = file($name);
 $n = count($lineas);
 $i = 2;
 $foldersize = 20;
@@ -48,9 +48,9 @@ while ($i < $n)
     $kml[] = '              <coordinates>';
     $j = 0;
     $i--;
-    while (($j < $foldersize) && ($i < $n)) //me fijo que ningun dato este vacio
+    while (($j < $foldersize) && ($i < $n)) 
     {
-        $arrayLinea = explode("\t" , $lineas[$i]); //genero un array con las mediciones separadas
+        $arrayLinea = explode("\t" , $lineas[$i]); 
         if (!empty(trim($arrayLinea[0])) && !empty(trim($arrayLinea[1])) && !empty(trim($arrayLinea[8])) && !empty(trim($arrayLinea[9])))
         {
             $kml[] = '              ' . GPS2degree(trim($arrayLinea[9])) . ',' . GPS2degree(trim($arrayLinea[8]));
@@ -70,32 +70,14 @@ while ($i < $n)
     $kml[] = '          </ExtendedData>';
     $kml[] = '      </Placemark>';
 }
-// End XML file
 $kml[] = ' </Document>';
 $kml[] = '</kml>';
 $kmlOutput = join("\n", $kml);
 
-$kmlArch = fopen("DataRLAbvE.kml","w");
+$kmlArch = fopen($name,"w");
 fwrite($kmlArch,$kmlOutput);
 fclose($kmlArch);
-
-
-
-/*
-$kml[] = '          <LineString>';
-$kml[] = '              <coordinates>';
-
-for ($i=1; $i < $n; $i++)
-{
-    $arrayLinea = explode("\t" , $lineas[$i]); //genero un array con las mediciones separadas
-    if (!empty(trim($arrayLinea[0])) && !empty(trim($arrayLinea[1])) && !empty(trim($arrayLinea[8])) && !empty(trim($arrayLinea[9]))) //me fijo que ningun dato este vacio
-    {
-        $kml[] = "                  " . GPS2degree(trim($arrayLinea[9])) . "," . GPS2degree(trim($arrayLinea[8]));     //agendo la latitud y longitud de esa linea
-    }
-} 
-$kml[] = '              </coordinates>';
-$kml[] = '          </LineString>';*/
-
+echo $name;
 ?>
 
 
