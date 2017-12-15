@@ -7,8 +7,7 @@
       <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
       <script src="https://openlayers.org/en/v4.5.0/build/ol.js"></script>
       <style>
-          .ol-popup 
-          {
+          .ol-popup{
             position: absolute;
             background-color: white;
             -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
@@ -20,8 +19,7 @@
             left: -50px;
             min-width: 280px;
           }
-          .ol-popup:after, .ol-popup:before 
-          {
+          .ol-popup:after, .ol-popup:before{
             top: 100%;
             border: solid transparent;
             content: " ";
@@ -30,29 +28,25 @@
             position: absolute;
             pointer-events: none;
           }
-          .ol-popup:after 
-          {
+          .ol-popup:after{
             border-top-color: rgb(255, 255, 255);
             border-width: 10px;
             left: 48px;
             margin-left: -10px;
           }
-          .ol-popup:before 
-          {
+          .ol-popup:before{
             border-top-color: #ffffff;
             border-width: 11px;
             left: 48px;
             margin-left: -11px;
           }
-          .ol-popup-closer 
-          {
+          .ol-popup-closer{
             text-decoration: none;
             position: absolute;
             top: 2px;
             right: 8px;
           }
-          .ol-popup-closer:after 
-          {
+          .ol-popup-closer:after{
             content: "X";
           }
       </style>
@@ -68,100 +62,99 @@
         var content = document.getElementById('popup-content');
         var closer = document.getElementById('popup-closer');
 
-        var overlay = new ol.Overlay(
-          {
+
+        var overlay = new ol.Overlay({
             element: container,
             autoPan: true,
             autoPanAnimation: {duration: 250}
-          });
+        });
 
-        closer.onclick = function() 
-        {
-          overlay.setPosition(undefined);
-          closer.blur();
-          return false;
-        };
-
-        var openStreetMap = new ol.layer.Tile(
-          {
-            source: new ol.source.OSM(
-              {
-                attributions: 
-                [
+        var openStreetMap = new ol.layer.Tile({
+            source: new ol.source.OSM({
+                attributions: [
                   'All maps <a href="http://www.openstreetmap.org/">OpenStreetMap</a>',
                   ol.source.OSM.ATTRIBUTION
                 ],
                 opaque: false,
                 url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
-              })
-          });
+            })
+        });
 
-        var openSeaMapLayer = new ol.layer.Tile(
-          {
-            source: new ol.source.OSM(
-              {
-                attributions: 
-                [
+        var openSeaMapLayer = new ol.layer.Tile({
+            source: new ol.source.OSM({
+                attributions: [
                   'All maps <a href="http://www.openseamap.org/">OpenSeaMap</a>',
                   ol.source.OSM.ATTRIBUTION
                 ],
                 opaque: false,
                 url: 'https://tiles.openseamap.org/seamark/{z}/{x}/{y}.png'
-              })
-          });
+            })
+        });
 
-        var source = new ol.source.Vector();
+        var vector = new ol.layer.Vector();
 
-        var vector = new ol.layer.Vector(
-          {
-            source: new ol.source.Vector(
-              {
-              url: './DataRLAbvE.kml',
-              format: new ol.format.KML()
-              })
-          });
-
-        var map = new ol.Map(
-          {
+        var map = new ol.Map({
             layers: [openStreetMap , openSeaMapLayer , vector],
             target: 'map',
             overlays: [overlay],
-            view: new ol.View(
-              {
+            view: new ol.View({
               maxZoom: 18,
               center: ol.proj.transform([8.5550875,53.566916333333], 'EPSG:4326', 'EPSG:3857'),
               zoom: 2
-              })
-          });
+            })
+        });
 
-        function hacerCuandoSeleccione(that)
-        {
-          if (that.selected.length >= 1)
-            {
-            var geometria = that.selected[0].getGeometry();
-            var posicion = geometria.getCoordinates();  
-            overlay.setPosition(posicion[0]);
-            var propiedades = that.selected[0].getProperties()
-            content.innerHTML = "Fecha: " + propiedades.when;
-            }
-        }
-
-        var select = null;
-
-        var changeInteraction = function() {
-          if (select !== null) {
-            map.removeInteraction(select);
-          }
-          select = new ol.interaction.Select({condition: ol.events.condition.pointerMove});
-          if (select !== null) 
-          {
-            map.addInteraction(select);
-            select.on('select', hacerCuandoSeleccione,this);
-          }
+        closer.onclick = function(){
+          overlay.setPosition(undefined);
+          closer.blur();
+          return false;
         };
 
-        map.on = changeInteraction;
-        changeInteraction();
+        function hacerCuandoSeleccione(that){
+          if (that.selected.length >= 1){
+            var geometria = that.selected[0].getGeometry();
+            var posicion = geometria.getCoordinates();  
+            var propiedades = that.selected[0].getProperties()
+            overlay.setPosition(posicion[0]);
+            content.innerHTML = "";
+            var claves = Object.keys(propiedades);
+            claves = claves.filter(item => item != "geometry");
+            claves = claves.filter(item => item != "styleUrl");
+            claves.forEach(function(clave){
+              if (propiedades[clave] != ""){
+                content.innerHTML += clave + ": " + propiedades[clave] + "<br>";
+              }
+            });
+          }
+        }
+
+        function cuadro(){
+          var extent = map.getView().calculateExtent(map.getSize());
+          var bottomLeft = ol.proj.transform(ol.extent.getBottomLeft(extent),'EPSG:3857', 'EPSG:4326');
+          var topRight = ol.proj.transform(ol.extent.getTopRight(extent),'EPSG:3857', 'EPSG:4326');
+          var arr = {
+            'x1':bottomLeft[0],
+            'x2':topRight[0],
+            'y2':topRight[1],
+            'y1':bottomLeft[1]
+          };
+          return arr;
+        }
+
+        function changeVector(){
+          var cuadrado = cuadro();
+          vector.setSource(new ol.source.Vector({
+            url: "buscaDatosDB.php?x1=" + cuadrado['x1'] + '&x2=' + cuadrado['x2'] + '&y2=' + cuadrado['y2'] + '&y1=' + cuadrado['y1'],
+            format: new ol.format.KML(),
+          }));
+        };
+
+        changeVector();
+        var select = new ol.interaction.Select({condition: ol.events.condition.pointerMove});
+        map.addInteraction(select);
+        select.on('select', hacerCuandoSeleccione,this);
+
+        map.on('moveend', changeVector);
     </script>
   </body>
 </html>
