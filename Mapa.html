@@ -68,6 +68,16 @@
           autoPanAnimation: {duration: 250}
         });
 
+        var styles1 = [
+  // linestring
+  new ol.style.Style({
+      stroke: new ol.style.Stroke({
+          color: '#ffcc33',
+          width: 15
+      })
+  })
+];
+
         var openStreetMap = new ol.layer.Tile({
           source: new ol.source.OSM({
             attributions: [
@@ -90,7 +100,9 @@
           })
         });
 
-        var vector = new ol.layer.Vector();
+        var vector = new ol.layer.Vector({
+          style: styleFunction1
+        });
 
         var map = new ol.Map({
           layers: [openStreetMap , openSeaMapLayer , vector],
@@ -140,14 +152,58 @@
           return arr;
         }
 
+        var styleFunction1 = function(feature) {
+         var geometry = feature.getGeometry();
+         var start = geometry.getFirstCoordinate();  
+          //var propiedades = feature.getProperties();
+          //var rotation = propiedades[angulo];
+          console.log(start);
+         // styles = new ol.style.Style({
+              //geometry: new ol.geom.Point(start),
+             /* image: new ol.style.Icon({
+                src: './images/arrow.png',
+                anchor: [75, 50],
+                rotateWithView: true,
+                rotation: rotation
+              })*/
+           //   image: new ol.style.Circle({
+          //radius: 600,
+          //stroke: new ol.style.Stroke({
+           // color: 'white',
+            //width: 2
+          //}),
+          //fill: new ol.style.Fill({
+           // color: 'green'
+          //})
+        //})
+
+          //  });
+          var styles1 = [
+            // linestring
+              new ol.style.Style({
+                    geometry: new ol.geom.Point(start),
+         
+                  stroke: new ol.style.Stroke({
+                      color: '#ffcc33',
+                      width: 15
+                  })
+              })
+            ];
+
+          return styles1;
+        };  
+
         function changeVector(){
           var cuadrado = cuadro();
           vector.setSource(new ol.source.Vector({
             url: "buscaDatosDB.php?x1=" + cuadrado['x1'] + '&x2=' + cuadrado['x2'] + '&y2=' + cuadrado['y2'] + '&y1=' + cuadrado['y1'],
             format: new ol.format.KML(),
           }));
+          vector.set
+
         };
 
+        vector.change.push(styleFunction1);
         changeVector();
 
         var select = new ol.interaction.Select({condition: ol.events.condition.pointerMove});
