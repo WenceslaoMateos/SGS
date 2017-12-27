@@ -119,7 +119,7 @@ $conn-> begin_transaction();
 //------------------------------------------------------------
 
 //APERTURA DE ARCHIVO A CARGAR.
-$name = "DataRLAbvE.dat";
+$name = "https://134.1.2.55/polarstern_data/results/fevans/DataRLAbvE.dat";
 
 //LECTURA DE DATOS A CARGAR Y CARGA DE DATOS EN LA BASE DE DATOS.
 $lineas = file($name);
