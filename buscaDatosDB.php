@@ -9,24 +9,24 @@ $x2=$_GET["x2"];
 $y1=$_GET["y1"];
 $y2=$_GET["y2"];
 
+/*function diferenciaTime($one, $two){
+    $one = explode(' ',$one);
+    $one = $one[1];
+    $one = str_replace(':','',$one);
+    $one = (int)$one;
+    $two = explode(' ',$two);
+    $two = $two[1];
+    $two = str_replace(':','',$two);
+    $two = (int)$two;
+    return ($one-$two)==100;
+}*/
 
 //CABECERA KML
 $kml = '<?xml version="1.0" encoding="UTF-8"?>'."\n";
 $kml .= '<kml xmlns="http://www.opengis.net/kml/2.2"'."\n";
 $kml .= ' xmlns:gx="http://www.google.com/kml/ext/2.2">'."\n";
 $kml .= '  <Document>'."\n";
-$kml .= '      <Style id="EstiloLinea">'."\n";
-$kml .= '          <LineStyle>'."\n";
-$kml .= '              <color>80000000</color>'."\n";
-$kml .= '              <width>5</width>'."\n";
-$kml .= '          </LineStyle>'."\n";
-$kml .= '          <PolyStyle>'."\n";
-$kml .= '              <color>80000000</color>'."\n";
-$kml .= '          </PolyStyle>'."\n";
-$kml .= '      </Style>'."\n";
 //END CABECERA KML
-
-
 
 //CONECCION CON LA BASE DE DATOS.
 $servername = "localhost";
@@ -60,8 +60,7 @@ $j = 0;
 if ($result->num_rows > 0){
     //Cada Placemark es un conjunto de varias mediciones.
     $kml .= '      <Placemark>'."\n";
-    $kml .= '          <name>Recorrido loco de un barco.</name>'."\n";
-    $kml .= '          <styleUrl>#EstiloLinea</styleUrl>'."\n";
+    $kml .= '          <name>Recorrido de un barco.</name>'."\n";
     $kml .= '          <LineString>'."\n";
     $kml .= '              <coordinates>'."\n";
     $i = 0;
@@ -77,7 +76,12 @@ if ($result->num_rows > 0){
             $kml .= '          </LineString>'."\n";
             $kml .= '          <ExtendedData>'."\n";
 
+            //$newTime = $row["time"];
+
             //cada elemento fetcheado se pone en el dato correspondiente
+            $kml .= '              <Data name="type">'."\n";
+            $kml .= '                  <value>line</value>'."\n";
+            $kml .= '              </Data>'."\n";
             foreach($row as $clave => $elemento){
                 $kml .= '              <Data name="' . $clave . '">'."\n";
                 $kml .= '                  <value>' . $elemento . '</value>'."\n";
@@ -86,13 +90,34 @@ if ($result->num_rows > 0){
             $kml .= '          </ExtendedData>'."\n";
             $kml .= '      </Placemark>'."\n";
             $kml .= '      <Placemark>'."\n";
-            $kml .= '          <name>Recorrido loco de un barco.</name>'."\n";
-            $kml .= '          <styleUrl>#EstiloLinea</styleUrl>'."\n";
+            $kml .= '          <name>Orientacion de un barco.</name>'."\n";
+            $kml .= '           <Point>'."\n";
+            $kml .= '               <coordinates>' . $row["longitud"]. ',' . $row["latitud"] . '</coordinates>'."\n";
+            $kml .= '           </Point>'."\n";
+            $kml .= '          <ExtendedData>'."\n";
+
+            //cada elemento fetcheado se pone en el dato correspondiente
+            $kml .= '              <Data name="type">'."\n";
+            $kml .= '                  <value>point</value>'."\n";
+            $kml .= '              </Data>'."\n";
+            foreach($row as $clave => $elemento){
+                $kml .= '              <Data name="' . $clave . '">'."\n";
+                $kml .= '                  <value>' . $elemento . '</value>'."\n";
+                $kml .= '              </Data>'."\n";
+            }
+            $kml .= '          </ExtendedData>'."\n";
+            $kml .= '      </Placemark>'."\n";
+            $kml .= '      <Placemark>'."\n";
+            $kml .= '          <name>Recorrido de un barco.</name>'."\n";
             $kml .= '          <LineString>'."\n";
             $kml .= '              <coordinates>'."\n";
 
+            /*
             //se guarda el ultimo elemento asi al siguiente se le puede agregar al principio
-            $kml .= '              ' . $last["longitud"]. ',' . $last["latitud"] . "\n";
+            $lastTime = $last["time"];
+            if (diferenciaTime($newTime,$lastTime))
+                $kml .= '              ' . $last["longitud"]. ',' . $last["latitud"] . "\n";
+            */
         }
         $last = $row;
     }
@@ -100,22 +125,28 @@ if ($result->num_rows > 0){
         $kml .= '              </coordinates>'."\n";
         $kml .= '          </LineString>'."\n";
         $kml .= '          <ExtendedData>'."\n";
-        foreach($last as $clave => $elemento){
+        $kml .= '              <Data name="type">'."\n";
+        $kml .= '                  <value>line</value>'."\n";
+        $kml .= '              </Data>'."\n";
+    foreach($last as $clave => $elemento){
             $kml .= '              <Data name="' . $clave . '">'."\n";
             $kml .= '                  <value>' . $elemento . '</value>'."\n";
             $kml .= '              </Data>'."\n";
         }
-    $kml .= '          </ExtendedData>'."\n";
+        $kml .= '          </ExtendedData>'."\n";
         $kml .= '      </Placemark>'."\n";
     }
 }
 //END CUERPO KML
 
-
 $kml .= ' </Document>'."\n";
+
 $kml .= '</kml>'."\n";
 
 //cierre de la conección a la base de datos
 $conn->close();
 
+/*$arch=fopen("kml.kml","w");
+fwrite($arch,$kml);
+fclose(arch);*/
 echo $kml;

@@ -90,7 +90,9 @@
           })
         });
 
-        var vector = new ol.layer.Vector();
+        var vector = new ol.layer.Vector({
+          style: styleFunction
+        });
 
         var map = new ol.Map({
           layers: [openStreetMap , openSeaMapLayer , vector],
@@ -112,9 +114,9 @@
         function hacerCuandoSeleccione(that){
           if (that.selected.length >= 1){
             var geometria = that.selected[0].getGeometry();
-            var posicion = geometria.getCoordinates();  
+            var posicion = geometria.getFirstCoordinate();  
             var propiedades = that.selected[0].getProperties()
-            overlay.setPosition(posicion[0]);
+            overlay.setPosition(posicion);
             content.innerHTML = "";
             var claves = Object.keys(propiedades);
             claves = claves.filter(item => item != "geometry");
@@ -140,21 +142,45 @@
           return arr;
         }
 
+        var styleFunction = function(feature) {
+          var propiedades = feature.getProperties();
+          var rotation = (propiedades['angulo'] * Math.PI) / 180;
+          if (propiedades['type']==='point'){
+            style = new ol.style.Style({
+              image: new ol.style.Icon({
+                src: './images/arrow.png',
+                opacity: 1,
+                scale: 0.2,
+                rotateWithView: true,
+                rotation: rotation
+              })
+            });
+          }
+          else{
+            style = new ol.style.Style({
+              stroke: new ol.style.Stroke({
+                color: '#777777',
+                width: 2
+              })
+            })
+          }
+          return [style]
+        };  
+
         function changeVector(){
           var cuadrado = cuadro();
           vector.setSource(new ol.source.Vector({
             url: "buscaDatosDB.php?x1=" + cuadrado['x1'] + '&x2=' + cuadrado['x2'] + '&y2=' + cuadrado['y2'] + '&y1=' + cuadrado['y1'],
-            format: new ol.format.KML(),
+            format: new ol.format.KML({extractStyles: false})
           }));
+          vector.setStyle(styleFunction1);
         };
 
-        changeVector();
+        map.on('moveend', changeVector);
 
         var select = new ol.interaction.Select({condition: ol.events.condition.pointerMove});
         map.addInteraction(select);
         select.on('select', hacerCuandoSeleccione,this);
-
-        map.on('moveend', changeVector);
     </script>
   </body>
 </html>
