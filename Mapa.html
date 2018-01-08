@@ -173,7 +173,7 @@
             url: "buscaDatosDB.php?x1=" + cuadrado['x1'] + '&x2=' + cuadrado['x2'] + '&y2=' + cuadrado['y2'] + '&y1=' + cuadrado['y1'],
             format: new ol.format.KML({extractStyles: false})
           }));
-          vector.setStyle(styleFunction1);
+          vector.setStyle(styleFunction);
         };
 
         map.on('moveend', changeVector);
