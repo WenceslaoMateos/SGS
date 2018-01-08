@@ -1,3 +1,10 @@
 *.kml
 *.png
 *.dat
+*.eps
+*.pdf
+*.bmp
+*.ps
+*.tmp
+*.nc
+*.history
