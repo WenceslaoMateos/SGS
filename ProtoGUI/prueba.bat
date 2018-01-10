@@ -11,8 +11,6 @@ REM -JZ8i establece que tan marcadas son las profundidades
 REM -Qm/s/i : m --> plot mesh, s --> surface, or  i --> image
 REM -p#A/#B: #A marca la rotación del grafico y #B lo ensancha o achata
 
-SET arg1=%1
-
-grdview %arg1% -Wc -B1a2 -BWSneZ+b+tmapitachoto -JM-57/-38/7i -Qs -JZ4i -P -p170/20 -Cseafloor2.cpt > map.ps
+grdview map2.tmp -Wc -B1a2 -BWSneZ+b+tmapitachoto -JM-57/-38/7i -Qs -JZ4i -P -p170/20 -Cseafloor2.cpt > map.ps
 psconvert -Tf map.ps
 map.pdf
