@@ -11,6 +11,27 @@
         <form method="post" name="archivo" enctype="multipart/form-data">
             <table width="500" border="0" cellpadding="5" cellspacing="5">
                 <tr>
+                    <td><input type="checkbox" name="-Wc" value="On">Curvas de nivel</td>
+                </tr>
+                <tr>
+                    <td><input type="radio" name="-Q" value="-Qm" checked>Grilla<br></td>
+                    <td><input type="radio" name="-Q" value="-Qs" checked>Superficie<br></td>
+                    <td><input type="radio" name="-Q" value="-Qi" checked>Imagen<br></td>
+                </tr>
+                <tr>
+                    <td><input type="radio" name="-T" value="-Tb" checked>BMP<br></td>
+                    <td><input type="radio" name="-T" value="-Te" checked>EPS<br></td>
+                    <td><input type="radio" name="-T" value="-TE" checked>EPS PageSize<br></td>
+                    <td><input type="radio" name="-T" value="-Tf" checked>PDF<br></td>
+                    <td><input type="radio" name="-T" value="-TF" checked>PDF multipagina<br></td>
+                    <td><input type="radio" name="-T" value="-Tj" checked>JPEG<br></td>
+                    <td><input type="radio" name="-T" value="-Tg" checked>PNG<br></td>
+                    <td><input type="radio" name="-T" value="-TG" checked>PNG transparente<br></td>
+                    <td><input type="radio" name="-T" value="-Tm" checked>PPM<br></td>
+                    <td><input type="radio" name="-T" value="-Ts" checked>SVG<br></td>
+                    <td><input type="radio" name="-T" value="-Tt" checked>TIFF<br></td>
+                </tr>
+                <tr>
                     <th>Adjuntar</th>
                     <td><input name="adjunto" type="file" accept=".tmp"></td>
                 </tr>
@@ -23,11 +44,20 @@
     }   
     else{
         $name = $_FILES['adjunto']['tmp_name']; 
-        //exec("grdview $name -Wc -B1a2 -BWSneZ+b+tmapitachoto -JM-57/-38/7i -Qs -JZ4i -P -p170/20 -Cseafloor2.cpt > map.ps 2>&1", $output);
-        exec("grdview $name -Wc -B1a2 -BWSneZ+b+tmapitachoto -JM-57/-38/7i -Qs -JZ4i -P -p170/20 -Cseafloor2.cpt > map.ps");
-        exec("psconvert -Tf map.ps");
+        $curvas = $_POST["-Wc"];
+        $representacion = $_POST["-Q"];
+        $formato = $_POST["-T"];
 
-        $filename="map.pdf";
+        $comando = "grdview $name";
+
+        if ($curvas === "On")
+            $comando .= " -Wc";
+
+        $comando .= " -B1a2 -BWSneZ+b+tmapitachoto -JM-57/-38/7i $representacion -JZ4i -P -p170/20 -Cseafloor2.cpt > map.ps";
+        exec($comando);        
+
+        exec("psconvert -Tf -Z -A4 -E720 map.ps");
+
         header("Content-type: application/octet-stream");
         header("Content-disposition: attachment;filename=$filename");
         readfile($filename);

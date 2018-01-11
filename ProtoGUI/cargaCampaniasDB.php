@@ -1,12 +1,5 @@
 <?php
 
-//TODO tener en cuenta que se deben poder cargr varios archivos
-
-$names = $_FILES['adjunto']['tmp_name']; 
-$fileTypes = $_FILES['adjunto']['type']; 
-if (strcasecmp($fileType,".dat") != 0)
-    die("Extensión del archivo invalida");
-
 //CONSTANT
 $DATE = 0;
 $TIME = 1;
@@ -107,6 +100,10 @@ function date2when($fecha,$hora)
 }
 //END FUNCIONES UTILES.
 
+//-------------------------------------------------------------------------------------------------//
+//-----------------------------------------Programa Principal--------------------------------------//
+//-------------------------------------------------------------------------------------------------//
+
 //CONECCION CON LA BASE DE DATOS.
 $servername = "localhost";
 $username = "wen";
@@ -118,61 +115,74 @@ if ($conn->connect_error){
     die("Connection failed: " . $conn->connect_error);
 }
 
-//se eliminan datos anteriores de la base de datos.
-$conn->query("TRUNCATE TABLE puntos");
+$m = count($_FILES['adjunto']['name']);
+for ($i = 0; $i < $m ; $i++){
 
-//se le indica a la base de datos que se le va a pasar un conjunto grande de querys.
-$conn-> begin_transaction();
-//------------------------------------------------------------
+    $fileType = $_FILES['adjunto']['type'][$i]; 
+    if (strcasecmp($fileType,".dat") != 0){
+        $name = $_FILES['adjunto']['tmp_name'][$i];
+        $dbtable = $_FILES['adjunto']['name'][$i];
 
-//APERTURA DE ARCHIVO A CARGAR.
-//$name = "https://134.1.2.55/polarstern_data/results/fevans/DataRLAbvE.dat";
+        //se eliminan datos anteriores de la base de datos.
+        $conn->query("CREATE TABLE $dbtable AS SELECT * FROM puntos WHERE NULL;");
+        $conn->query("TRUNCATE TABLE $dbtable;");
 
-//LECTURA DE DATOS A CARGAR Y CARGA DE DATOS EN LA BASE DE DATOS.
-$lineas = file($name);
-$n = count($lineas);
-$j = 0;
-for($i = 4; $i < $n; $i++){
-    $arrayLinea = explode("\t", $lineas[$i]); 
-    if (camposValidos($arrayLinea)){
-        $time = date2when(trim($arrayLinea[$DATE]), trim($arrayLinea[$TIME]));
-        $latitud = GPS2degree(trim($arrayLinea[$LONGITUDE]));
-        $longitud = GPS2degree(trim($arrayLinea[$LATITUDE]));     
-        
-        //se genera el punto para despues poder indexar espacialmente.
-        $geom = "'POINT($longitud $latitud)'";
-        $point = "GeomFromText($geom)";
+        //se le indica a la base de datos que se le va a pasar un conjunto grande de querys.
+        $conn-> begin_transaction();
+        //------------------------------------------------------------
 
-        //Inserta el punto en la base de datos.
-        $sql = "INSERT INTO puntos (time, longitud, latitud, point) VALUES ('$time', $longitud, $latitud, $point);";
-        $conn->query($sql);
-        
-        //Al punto insertado le agrega la velocidad en caso de ser valida.
-        $speed = $arrayLinea[$SPEED];
-        if (numeroValido($speed, 5, 1)){
-            $sql = "UPDATE puntos SET velocidad = $speed WHERE id = $j;";
-            $conn->query($sql);
+        //APERTURA DE ARCHIVO A CARGAR.
+        //$name = "https://134.1.2.55/polarstern_data/results/fevans/DataRLAbvE.dat";
+
+        //LECTURA DE DATOS A CARGAR Y CARGA DE DATOS EN LA BASE DE DATOS.
+
+        //no se por que no me deja abrir el archivo 
+        $lineas = file($name);
+        $n = count($lineas);
+        $j = 0;
+        for($i = 4; $i < $n; $i++){
+            $arrayLinea = explode("\t", $lineas[$i]); 
+            if (camposValidos($arrayLinea)){
+                $time = date2when(trim($arrayLinea[$DATE]), trim($arrayLinea[$TIME]));
+                $latitud = GPS2degree(trim($arrayLinea[$LONGITUDE]));
+                $longitud = GPS2degree(trim($arrayLinea[$LATITUDE]));     
+                
+                //se genera el punto para despues poder indexar espacialmente.
+                $geom = "'POINT($longitud $latitud)'";
+                $point = "GeomFromText($geom)";
+
+                //Inserta el punto en la base de datos.
+                $sql = "INSERT INTO $dbtable (time, longitud, latitud, point) VALUES ('$time', $longitud, $latitud, $point);";
+                $conn->query($sql);
+                
+                //Al punto insertado le agrega la velocidad en caso de ser valida.
+                $speed = $arrayLinea[$SPEED];
+                if (numeroValido($speed, 5, 1)){
+                    $sql = "UPDATE $dbtable SET velocidad = $speed WHERE id = $j;";
+                    $conn->query($sql);
+                }
+            
+                //Al punto insertado le agrega la profundidad en caso de ser valida.
+                $depth = $arrayLinea[$DEPTH];
+                if (numeroValido($depth, 5)){
+                    $sql = "UPDATE $dbtable SET profundidad = $depth WHERE id = $j;";
+                    $conn->query($sql);
+                }
+            
+                //Al punto insertado le agrega el angulo en caso de ser valido.
+                $heading = $arrayLinea[$SYSTEM_HEADING];
+                if (numeroValido($heading, 5, 1)){
+                    $sql = "UPDATE $dbtable SET angulo = $heading WHERE id = $j;";
+                    $conn->query($sql);
+                }
+                $j++;
+            }
         }
-    
-        //Al punto insertado le agrega la profundidad en caso de ser valida.
-        $depth = $arrayLinea[$DEPTH];
-        if (numeroValido($depth, 5)){
-            $sql = "UPDATE puntos SET profundidad = $depth WHERE id = $j;";
-            $conn->query($sql);
-        }
-    
-        //Al punto insertado le agrega el angulo en caso de ser valido.
-        $heading = $arrayLinea[$SYSTEM_HEADING];
-        if (numeroValido($heading, 5, 1)){
-            $sql = "UPDATE puntos SET angulo = $heading WHERE id = $j;";
-            $conn->query($sql);
-        }
-        $j++;
+            
+        //avisa a la base de datos que ya se pueden hacer todas las operaciones antes solicitadas.
+        $conn->commit();
     }
+    /* El mensaje de error para los logs va a entrar acá */
 }
-    
-//avisa a la base de datos que ya se pueden hacer todas las operaciones antes solicitadas.
-$conn->commit();
-
 //CIERRE DE LA BASE DE DATOS.
 $conn->close();

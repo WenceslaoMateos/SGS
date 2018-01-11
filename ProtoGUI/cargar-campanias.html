@@ -5,11 +5,11 @@
         <title>Carga de sensores</title>
     </head>
 <body>
-    <form action="cargaDatosDB.php" method="post" name="archivo" enctype="multipart/form-data">
+    <form action="cargaCampaniasDB.php" method="post" name="archivo" enctype="multipart/form-data">
     <table width="500" border="0" cellpadding="5" cellspacing="5">
     <tr>
-      <th>Adjuntar</th>
-      <td><input name="adjunto" type="file" accept=".dat"></td>
+        <th>Adjuntar campañas</th>
+        <td><input name="adjunto" type="file" accept=".dat" multiple></td>
     </tr>
     <tr>
         <td colspan="2" style="text-align:center;"><input type="submit" name="Enviar" value="Enviar"></td>
