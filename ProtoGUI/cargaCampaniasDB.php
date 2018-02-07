@@ -116,12 +116,25 @@ if ($conn->connect_error){
 }
 
 $m = count($_FILES['adjunto']['name']);
+echo $m . " ------";
+for ($i = 0; $i < $m ; $i++)
+    echo move_uploaded_file($_FILES["adjunto"]["tmp_name"][$i],'tmp/' . $_FILES["adjunto"]["name"][$i]) . "ñaña";
+/*
+$names = $_FILES['adjunto']['tmp_name'];
+$dbtables = $_FILES['adjunto']['name'];
+$fileTypes = $_FILES['adjunto']['type']; 
+
+echo $names[0] . "\n";
+echo $names[1];
+
+
+$m = count($names);
 for ($i = 0; $i < $m ; $i++){
 
-    $fileType = $_FILES['adjunto']['type'][$i]; 
+    $fileType = $fileTypes[$i]; 
     if (strcasecmp($fileType,".dat") != 0){
-        $name = $_FILES['adjunto']['tmp_name'][$i];
-        $dbtable = $_FILES['adjunto']['name'][$i];
+        $name = $names[$i];
+        $dbtable = $dbtables[$i];
 
         //se eliminan datos anteriores de la base de datos.
         $conn->query("CREATE TABLE $dbtable AS SELECT * FROM puntos WHERE NULL;");
@@ -183,6 +196,6 @@ for ($i = 0; $i < $m ; $i++){
         $conn->commit();
     }
     /* El mensaje de error para los logs va a entrar acá */
-}
+
 //CIERRE DE LA BASE DE DATOS.
 $conn->close();
