@@ -1,0 +1,61 @@
+# Export of DSHIP data
+
+Order file = OrderEft9G1
+User = fschmid
+Destination path = results/Hai_E512
+Notification send to = fschmid@awi.de
+Destination file = DataHB8EOK (.txt / .dat / .log / .sys)
+
+Separator = "\t"
+End of record = "\n"
+Decimal symbol = "."
+Pattern for non valid numerical values = "9"
+Pattern for non valid alphanumerical values = " "
+Pattern for non valid position values = " "
+
+Start date/time = 20.07.2016 06:00:00
+End date/time = 04.09.2017 07:00:00
+Interval = 60000 milli-sec
+BlockingFactor = 60
+
+Header row = True
+Date/Time columns = YYYY/MM/DD\tHH:mm:SS
+
+No of channels = 4
+
+Channel 1
+   Device      = "trimble 1 GPS"
+   Sensor      = "Date"
+   Format      = "Text"
+   Length      = 12
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 2
+   Device      = "trimble 1 GPS"
+   Sensor      = "Time"
+   Format      = "Text"
+   Length      = 8
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 3
+   Device      = "trimble 1 GPS"
+   Sensor      = "position latitude"
+   Format      = "PosLat"
+   Length      = 13
+   Precision   = 3
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 4
+   Device      = "trimble 1 GPS"
+   Sensor      = "position longitude"
+   Format      = "PosLon"
+   Length      = 13
+   Precision   = 3
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 

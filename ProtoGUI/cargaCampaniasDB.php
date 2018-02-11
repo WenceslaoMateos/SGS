@@ -1,16 +1,57 @@
 <?php
 
-//CONSTANT
-$DATE = 0;
-$TIME = 1;
-$UTC_TIME = 4;
-$NUMBER_USED_SATELLITE = 7;
-$LONGITUDE = 8;
-$LATITUDE = 9;
-$DEPTH = 11;
-$SPEED = 16;
-$SYSTEM_HEADING = 38;
-//END CONSTANT
+function constantSet($datos){
+    //CONSTANT
+    $ret = array();
+    $n = count($datos["sensor"]);
+    for ($i = 0; $i < $n; $i++){
+        $ret[$datos["sensor"][$i]] = $i+2;
+    }
+    return $ret;
+}
+
+function parsingTDatos($archivos){
+    $ret = array();
+    $m = count($archivos);
+    for ($j = 0; $j < $m; $j++){
+        $archivo = $archivos[$j];
+        $array = file($archivo);
+        $n = count($array);
+        $ret[$j] = array(
+            "dispositivo" => array(),
+            "sensor" => array(),
+            "formato" => array(),
+            "longitud" => array(),
+            "precision" => array(),
+            "unidades" => array(),
+            "calculo" => array(),
+            "valores" => array()
+        );
+        $i = 0;
+        while ($i < $n){
+            if (substr($array[$i], 0, 8) == 'Channel '){
+                $i++;
+                $ret[$j]["dispositivo"][] = trim(str_replace("\"","",substr($array[$i], 16, 50)));
+                $i++;
+                $ret[$j]["sensor"][] = trim(str_replace("\"","",substr($array[$i], 16, 50)));
+                $i++;
+                $ret[$j]["formato"][] = trim(str_replace("\"","",substr($array[$i], 16, 50)));
+                $i++;
+                $ret[$j]["longitud"][] = trim(str_replace("\"","",substr($array[$i], 16, 50)));
+                $i++;
+                $ret[$j]["precision"][] = trim(str_replace("\"","",substr($array[$i], 16, 50)));
+                $i++;
+                $ret[$j]["unidades"][] = trim(str_replace("\"","",substr($array[$i], 16, 50)));
+                $i++;
+                $ret[$j]["calculo"][] = trim(str_replace("\"","",substr($array[$i], 16, 50)));
+                $i++;
+                $ret[$j]["valores"][] = trim(str_replace("\"","",substr($array[$i], 22, 50)));
+            }
+            $i++;
+        }
+    }   
+    return $ret;
+}
 
 //FUNCIONES UTILES
 /**
@@ -47,7 +88,7 @@ function GPS2degree($coordenada){
  * @param integer $precision Cantidad de decimales que el numero posee.
  * @return boolean $ret En caso de que el dato sea valido devuelve true, false en caso contrario.
  */
-function numeroValido($dato, $length=5, $precision = 0){
+function valido($dato, $length=5, $precision = 0){
     $format = 0;
     if($precision == 0){
         for ($i = 0; $i < $length; $i++){
@@ -63,9 +104,9 @@ function numeroValido($dato, $length=5, $precision = 0){
         for ($i = 0; $i < $precision; $i++){
             $decim = ($decim + 9) / 10;
         }
-        $ret = (($format + $decim) == abs($dato));
+        $ret = !(($format + $decim) == abs($dato));
     }
-    return !$ret;
+    return $ret;
 }
 
 /**
@@ -76,13 +117,12 @@ function numeroValido($dato, $length=5, $precision = 0){
  * elementos representa una medición.
  * @return void
  */
-function camposValidos($array)
+function camposValidos($array,$claves)
 {
-    global $DATE, $TIME, $LATITUDE, $LONGITUDE;      
-    $ret = !empty(trim($array[$DATE]));
-    $ret = $ret && !empty(trim($array[$TIME]));
-    $ret = $ret && !empty(trim($array[$LONGITUDE]));
-    $ret = $ret && !empty(trim($array[$LATITUDE]));
+    $ret = !empty(trim($array[$claves["Date"]]));
+    $ret = $ret && !empty(trim($array[$claves["Time"]]));
+    $ret = $ret && !empty(trim($array[$claves["position longitude"]]));
+    $ret = $ret && !empty(trim($array[$claves["position latitude"]]));
     return $ret;
 }
 
@@ -96,7 +136,9 @@ function camposValidos($array)
  */
 function date2when($fecha,$hora)
 {
-    return join("-", explode ("/" , $fecha)) . " " . $hora;
+    $aux = explode("." , $fecha);
+    $fecha = join("-", array($aux[2], $aux[1], $aux[0]));
+    return $fecha . " " . $hora;
 }
 //END FUNCIONES UTILES.
 
@@ -114,87 +156,98 @@ $conn =new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error){
     die("Connection failed: " . $conn->connect_error);
 }
+ini_set('max_execution_time', -1);
+ini_set('memory_limit', '-1'); //MUCHO CUIDADO AVERIGUAR POR LAS DUDAS!!!!!!!!//
 
-$m = count($_FILES['adjunto']['name']);
-echo $m . " ------";
-for ($i = 0; $i < $m ; $i++)
-    echo move_uploaded_file($_FILES["adjunto"]["tmp_name"][$i],'tmp/' . $_FILES["adjunto"]["name"][$i]) . "ñaña";
-/*
-$names = $_FILES['adjunto']['tmp_name'];
-$dbtables = $_FILES['adjunto']['name'];
-$fileTypes = $_FILES['adjunto']['type']; 
+$names = $_FILES['camp']['tmp_name'];
+$dbtables = $_FILES['camp']['name'];
+$fileTypes = $_FILES['camp']['type']; 
+$formatos = $_FILES['formato']['tmp_name'];
 
-echo $names[0] . "\n";
-echo $names[1];
-
+$tDatos = parsingTDatos($formatos);
 
 $m = count($names);
-for ($i = 0; $i < $m ; $i++){
 
-    $fileType = $fileTypes[$i]; 
+//$conn->autocommit(FALSE);
+for ($k = 0; $k < $m ; $k++){
+
+    $fileType = $fileTypes[$k]; 
+    //echo  "<br>" . $k . "<br>";
     if (strcasecmp($fileType,".dat") != 0){
-        $name = $names[$i];
-        $dbtable = $dbtables[$i];
+        $name = $names[$k];
+        $dbtable = explode(".",$dbtables[$k])[0];
 
+        $sql = "CREATE TABLE $dbtable AS SELECT * FROM templatecamp WHERE NULL;";
+        $conn->query($sql);
+        
         //se eliminan datos anteriores de la base de datos.
-        $conn->query("CREATE TABLE $dbtable AS SELECT * FROM puntos WHERE NULL;");
         $conn->query("TRUNCATE TABLE $dbtable;");
 
+        $conn->begin_transaction();
         //se le indica a la base de datos que se le va a pasar un conjunto grande de querys.
-        $conn-> begin_transaction();
         //------------------------------------------------------------
-
-        //APERTURA DE ARCHIVO A CARGAR.
-        //$name = "https://134.1.2.55/polarstern_data/results/fevans/DataRLAbvE.dat";
 
         //LECTURA DE DATOS A CARGAR Y CARGA DE DATOS EN LA BASE DE DATOS.
 
         //no se por que no me deja abrir el archivo 
-        $lineas = file($name);
+        $claves = constantSet($tDatos[$k]);
+        $lineas = file($name); 
         $n = count($lineas);
         $j = 0;
-        for($i = 4; $i < $n; $i++){
+        for($i = 4; ($i < 400000) && ($i < $n); $i++){
             $arrayLinea = explode("\t", $lineas[$i]); 
-            if (camposValidos($arrayLinea)){
-                $time = date2when(trim($arrayLinea[$DATE]), trim($arrayLinea[$TIME]));
-                $latitud = GPS2degree(trim($arrayLinea[$LONGITUDE]));
-                $longitud = GPS2degree(trim($arrayLinea[$LATITUDE]));     
+            //echo $i . ' --- ';
+            if (camposValidos($arrayLinea, $claves)){
+                $time = date2when(trim($arrayLinea[$claves["Date"]]), trim($arrayLinea[$claves["Time"]]));
+                $latitud = GPS2degree(trim($arrayLinea[$claves["position latitude"]]));
+                $longitud = GPS2degree(trim($arrayLinea[$claves["position longitude"]]));     
                 
                 //se genera el punto para despues poder indexar espacialmente.
                 $geom = "'POINT($longitud $latitud)'";
                 $point = "GeomFromText($geom)";
 
-                //Inserta el punto en la base de datos.
-                $sql = "INSERT INTO $dbtable (time, longitud, latitud, point) VALUES ('$time', $longitud, $latitud, $point);";
-                $conn->query($sql);
+                $nombres = "";
+                $valores = "";
                 
                 //Al punto insertado le agrega la velocidad en caso de ser valida.
-                $speed = $arrayLinea[$SPEED];
-                if (numeroValido($speed, 5, 1)){
-                    $sql = "UPDATE $dbtable SET velocidad = $speed WHERE id = $j;";
-                    $conn->query($sql);
+                if (isset($claves["speed"])){
+                    $speed = $arrayLinea[$claves["speed"]];
+                    if (valido($speed, 5, 1)){
+                        $nombres .= ", velocidad";
+                        $valores .= ", $speed";
+                    }
                 }
-            
                 //Al punto insertado le agrega la profundidad en caso de ser valida.
-                $depth = $arrayLinea[$DEPTH];
-                if (numeroValido($depth, 5)){
-                    $sql = "UPDATE $dbtable SET profundidad = $depth WHERE id = $j;";
-                    $conn->query($sql);
+                if (isset($claves["depth"])){
+                    $depth = $arrayLinea[$claves["depth"]];
+                    if (valido($depth, 5)){
+                        $nombres .= ", profundidad";
+                        $valores .= ", $depth";
+                    }
                 }
             
                 //Al punto insertado le agrega el angulo en caso de ser valido.
-                $heading = $arrayLinea[$SYSTEM_HEADING];
-                if (numeroValido($heading, 5, 1)){
-                    $sql = "UPDATE $dbtable SET angulo = $heading WHERE id = $j;";
-                    $conn->query($sql);
+                if (isset($claves["system heading"])){
+                    $heading = $arrayLinea[$claves["system heading"]];
+                    if (valido($heading, 5, 1)){
+                        $nombres .= ", angulo";
+                        $valores .= ", $heading";
+                    }
                 }
+                
+                //Inserta el punto en la base de datos.
+                $sql = "INSERT INTO $dbtable (id, time, longitud, latitud, point $nombres) 
+                        VALUES ($j,'$time', $longitud, $latitud, $point $valores);";
+                $conn->query($sql);
+
                 $j++;
             }
         }
             
-        //avisa a la base de datos que ya se pueden hacer todas las operaciones antes solicitadas.
         $conn->commit();
+        //avisa a la base de datos que ya se pueden hacer todas las operaciones antes solicitadas.
     }
+}
     /* El mensaje de error para los logs va a entrar acá */
 
 //CIERRE DE LA BASE DE DATOS.

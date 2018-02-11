@@ -1,0 +1,1924 @@
+# Export of DSHIP data
+
+Order file = Orderf03dlG
+User = felipe
+Destination path = results/fevans
+Notification send to = evansfelipe@gmail.com
+Destination file = DataRLAbvE (.txt / .dat / .log / .sys)
+
+Separator = "\t"
+End of record = "\n"
+Decimal symbol = "."
+Pattern for non valid numerical values = "9"
+Pattern for non valid alphanumerical values = " "
+Pattern for non valid position values = " "
+
+Start date/time = 08.11.2001 00:00:00
+End date/time = 30.11.2001 23:59:00
+Interval = 60000 milli-sec
+BlockingFactor = 60
+
+Header row = True
+Date/Time columns = YYYY/MM/DD\tHH:mm:SS
+
+No of channels = 211
+
+Channel 1
+   Device      = "ashtech Z-12 DGPS"
+   Sensor      = "GPS HDOP"
+   Format      = "Int"
+   Length      = 4
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 2
+   Device      = "ashtech Z-12 DGPS"
+   Sensor      = "GPS quality indicator"
+   Format      = "Int"
+   Length      = 2
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 3
+   Device      = "ashtech Z-12 DGPS"
+   Sensor      = "UTC time"
+   Format      = "Real"
+   Length      = 2
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 4
+   Device      = "ashtech Z-12 DGPS"
+   Sensor      = "antenna height"
+   Format      = "Real"
+   Length      = 8
+   Precision   = 3
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 5
+   Device      = "ashtech Z-12 DGPS"
+   Sensor      = "course made good"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "deg"
+   Calculation = "CycleGrad"
+   Delivered values = Spot 
+Channel 6
+   Device      = "ashtech Z-12 DGPS"
+   Sensor      = "number of GPS satellites being used"
+   Format      = "Int"
+   Length      = 2
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 7
+   Device      = "ashtech Z-12 DGPS"
+   Sensor      = "position latitude"
+   Format      = "PosLat"
+   Length      = 15
+   Precision   = 5
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 8
+   Device      = "ashtech Z-12 DGPS"
+   Sensor      = "position longitude"
+   Format      = "PosLon"
+   Length      = 15
+   Precision   = 5
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 9
+   Device      = "ashtech Z-12 DGPS"
+   Sensor      = "speed made good"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "kn"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 10
+   Device      = "deep water sounder"
+   Sensor      = "depth"
+   Format      = "Int"
+   Length      = 5
+   Precision   = 0
+   Phys. Unit  = "m"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 11
+   Device      = "DO-Log"
+   Sensor      = "speed bottomtrack across"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "kn"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 12
+   Device      = "DO-Log"
+   Sensor      = "speed bottomtrack ahead"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "kn"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 13
+   Device      = "DO-Log"
+   Sensor      = "speed watertrack across"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "kn"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 14
+   Device      = "DO-Log"
+   Sensor      = "speed watertrack ahead"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "kn"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 15
+   Device      = "EM-Log"
+   Sensor      = "speed"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "kn"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 16
+   Device      = "gravimeter"
+   Sensor      = "ACC-X"
+   Format      = "Real"
+   Length      = 14
+   Precision   = 6
+   Phys. Unit  = "m/s2"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 17
+   Device      = "gravimeter"
+   Sensor      = "ACC-Y"
+   Format      = "Real"
+   Length      = 14
+   Precision   = 6
+   Phys. Unit  = "m/s2"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 18
+   Device      = "gravimeter"
+   Sensor      = "bouguer anomaly"
+   Format      = "Real"
+   Length      = 10
+   Precision   = 2
+   Phys. Unit  = "mGal"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 19
+   Device      = "gravimeter"
+   Sensor      = "clockID old"
+   Format      = "Text"
+   Length      = 1
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 20
+   Device      = "gravimeter"
+   Sensor      = "free air anomaly"
+   Format      = "Real"
+   Length      = 10
+   Precision   = 2
+   Phys. Unit  = "mGal"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 21
+   Device      = "gravimeter"
+   Sensor      = "gravity old"
+   Format      = "Real"
+   Length      = 9
+   Precision   = 2
+   Phys. Unit  = "mgal"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 22
+   Device      = "gravimeter"
+   Sensor      = "normal gravity"
+   Format      = "Real"
+   Length      = 10
+   Precision   = 2
+   Phys. Unit  = "mGal"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 23
+   Device      = "motion heave"
+   Sensor      = "heave"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 2
+   Phys. Unit  = "m"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 24
+   Device      = "NACOS ship navigation system"
+   Sensor      = "filter course made good"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "deg"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 25
+   Device      = "NACOS ship navigation system"
+   Sensor      = "filter drift"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "m/s"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 26
+   Device      = "NACOS ship navigation system"
+   Sensor      = "filter position latitude"
+   Format      = "PosLat"
+   Length      = 15
+   Precision   = 5
+   Phys. Unit  = "deg"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 27
+   Device      = "NACOS ship navigation system"
+   Sensor      = "filter position longitude"
+   Format      = "PosLon"
+   Length      = 15
+   Precision   = 5
+   Phys. Unit  = "deg"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 28
+   Device      = "NACOS ship navigation system"
+   Sensor      = "filter set"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "deg"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 29
+   Device      = "NACOS ship navigation system"
+   Sensor      = "filter speed made good"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "m/s"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 30
+   Device      = "NACOS ship navigation system"
+   Sensor      = "speed bottomtrack across"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "kn"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 31
+   Device      = "NACOS ship navigation system"
+   Sensor      = "speed bottomtrack ahead"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "kn"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 32
+   Device      = "NACOS ship navigation system"
+   Sensor      = "speed made good"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "kn"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 33
+   Device      = "NACOS ship navigation system"
+   Sensor      = "speed watertrack across"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "kn"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 34
+   Device      = "NACOS ship navigation system"
+   Sensor      = "speed watertrack ahead"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "kn"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 35
+   Device      = "NACOS ship navigation system"
+   Sensor      = "system course"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "deg"
+   Calculation = "CycleGrad"
+   Delivered values = Spot 
+Channel 36
+   Device      = "NACOS ship navigation system"
+   Sensor      = "system course status"
+   Format      = "Text"
+   Length      = 1
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 37
+   Device      = "NACOS ship navigation system"
+   Sensor      = "system heading"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "deg"
+   Calculation = "CycleGrad"
+   Delivered values = Spot 
+Channel 38
+   Device      = "NACOS ship navigation system"
+   Sensor      = "system heading status"
+   Format      = "Text"
+   Length      = 1
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 39
+   Device      = "NACOS ship navigation system"
+   Sensor      = "system position latitude"
+   Format      = "PosLat"
+   Length      = 12
+   Precision   = 2
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 40
+   Device      = "NACOS ship navigation system"
+   Sensor      = "system position longitude"
+   Format      = "PosLon"
+   Length      = 12
+   Precision   = 2
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 41
+   Device      = "NACOS ship navigation system"
+   Sensor      = "system position status"
+   Format      = "Text"
+   Length      = 2
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 42
+   Device      = "NACOS ship navigation system"
+   Sensor      = "system speed"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "kn"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 43
+   Device      = "NACOS ship navigation system"
+   Sensor      = "system speed status"
+   Format      = "Text"
+   Length      = 1
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 44
+   Device      = "NACOS ship navigation system"
+   Sensor      = "system speed unit"
+   Format      = "Text"
+   Length      = 1
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 45
+   Device      = "NACOS ship navigation system"
+   Sensor      = "track made good"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "deg"
+   Calculation = "CycleGrad"
+   Delivered values = Spot 
+Channel 46
+   Device      = "NACOS ship navigation system"
+   Sensor      = "track/speed status"
+   Format      = "Text"
+   Length      = 5
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 47
+   Device      = "NACOS ship navigation system"
+   Sensor      = "waypoint 1 position latitude"
+   Format      = "PosLat"
+   Length      = 13
+   Precision   = 3
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 48
+   Device      = "NACOS ship navigation system"
+   Sensor      = "waypoint 1 position longitude"
+   Format      = "PosLon"
+   Length      = 13
+   Precision   = 3
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 49
+   Device      = "NACOS ship navigation system"
+   Sensor      = "waypoint 2 position latitude"
+   Format      = "PosLat"
+   Length      = 13
+   Precision   = 3
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 50
+   Device      = "NACOS ship navigation system"
+   Sensor      = "waypoint 2 position longitude"
+   Format      = "PosLon"
+   Length      = 13
+   Precision   = 3
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 51
+   Device      = "NACOS ship navigation system"
+   Sensor      = "waypoint 3 position latitude"
+   Format      = "PosLat"
+   Length      = 13
+   Precision   = 3
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 52
+   Device      = "NACOS ship navigation system"
+   Sensor      = "waypoint 3 position longitude"
+   Format      = "PosLon"
+   Length      = 13
+   Precision   = 3
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 53
+   Device      = "NACOS ship navigation system"
+   Sensor      = "waypoint 4 position latitude"
+   Format      = "PosLat"
+   Length      = 13
+   Precision   = 3
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 54
+   Device      = "NACOS ship navigation system"
+   Sensor      = "waypoint 4 position longitude"
+   Format      = "PosLon"
+   Length      = 13
+   Precision   = 3
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 55
+   Device      = "NACOS ship navigation system"
+   Sensor      = "waypoint 5 position latitude"
+   Format      = "PosLat"
+   Length      = 13
+   Precision   = 3
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 56
+   Device      = "NACOS ship navigation system"
+   Sensor      = "waypoint 5 position longitude"
+   Format      = "PosLon"
+   Length      = 13
+   Precision   = 3
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 57
+   Device      = "navigation sounder"
+   Sensor      = "depth"
+   Format      = "Real"
+   Length      = 7
+   Precision   = 1
+   Phys. Unit  = "m"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 58
+   Device      = "parasound"
+   Sensor      = "depth"
+   Format      = "Int"
+   Length      = 6
+   Precision   = 0
+   Phys. Unit  = "m"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 59
+   Device      = "sea ice monitoring system old"
+   Sensor      = "apparent conductivity"
+   Format      = "Real"
+   Length      = 8
+   Precision   = 3
+   Phys. Unit  = "mS/m"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 60
+   Device      = "sea ice monitoring system old"
+   Sensor      = "coefficient 1"
+   Format      = "Real"
+   Length      = 8
+   Precision   = 3
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 61
+   Device      = "sea ice monitoring system old"
+   Sensor      = "coefficient 2"
+   Format      = "Real"
+   Length      = 8
+   Precision   = 3
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 62
+   Device      = "sea ice monitoring system old"
+   Sensor      = "coefficient 3"
+   Format      = "Real"
+   Length      = 8
+   Precision   = 3
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 63
+   Device      = "sea ice monitoring system old"
+   Sensor      = "ice thickness"
+   Format      = "Real"
+   Length      = 8
+   Precision   = 3
+   Phys. Unit  = "m"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 64
+   Device      = "sea ice monitoring system old"
+   Sensor      = "intensity of reflection"
+   Format      = "Int"
+   Length      = 3
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 65
+   Device      = "sea ice monitoring system old"
+   Sensor      = "laser distance to surface"
+   Format      = "Real"
+   Length      = 8
+   Precision   = 3
+   Phys. Unit  = "m"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 66
+   Device      = "System"
+   Sensor      = "Course"
+   Format      = "Real"
+   Length      = 7
+   Precision   = 3
+   Phys. Unit  = "deg"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 67
+   Device      = "System"
+   Sensor      = "Course Sensorname"
+   Format      = "Text"
+   Length      = 10
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 68
+   Device      = "System"
+   Sensor      = "Depth"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 1
+   Phys. Unit  = "m"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 69
+   Device      = "System"
+   Sensor      = "Depth Sensorname"
+   Format      = "Text"
+   Length      = 10
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 70
+   Device      = "System"
+   Sensor      = "Heading"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "deg"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 71
+   Device      = "System"
+   Sensor      = "Heading Sensorname"
+   Format      = "Text"
+   Length      = 10
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 72
+   Device      = "System"
+   Sensor      = "Position Sensorname"
+   Format      = "Text"
+   Length      = 10
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 73
+   Device      = "System"
+   Sensor      = "Position lat"
+   Format      = "PosLat"
+   Length      = 15
+   Precision   = 5
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 74
+   Device      = "System"
+   Sensor      = "Position lat (degrees)"
+   Format      = "Real"
+   Length      = 8
+   Precision   = 2
+   Phys. Unit  = "deg"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 75
+   Device      = "System"
+   Sensor      = "Position lon"
+   Format      = "PosLon"
+   Length      = 15
+   Precision   = 5
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 76
+   Device      = "System"
+   Sensor      = "Position lon (degrees)"
+   Format      = "Real"
+   Length      = 8
+   Precision   = 2
+   Phys. Unit  = "deg"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 77
+   Device      = "System"
+   Sensor      = "Rope length"
+   Format      = "Real"
+   Length      = 8
+   Precision   = 2
+   Phys. Unit  = "m"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 78
+   Device      = "System"
+   Sensor      = "Rope speed"
+   Format      = "Real"
+   Length      = 8
+   Precision   = 4
+   Phys. Unit  = "m/s"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 79
+   Device      = "System"
+   Sensor      = "Rope tension"
+   Format      = "Real"
+   Length      = 8
+   Precision   = 2
+   Phys. Unit  = "kN"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 80
+   Device      = "System"
+   Sensor      = "Rope tension peak"
+   Format      = "Real"
+   Length      = 8
+   Precision   = 3
+   Phys. Unit  = "kN"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 81
+   Device      = "System"
+   Sensor      = "Rope work length"
+   Format      = "Real"
+   Length      = 8
+   Precision   = 2
+   Phys. Unit  = "m"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 82
+   Device      = "System"
+   Sensor      = "Speed"
+   Format      = "Real"
+   Length      = 7
+   Precision   = 4
+   Phys. Unit  = "kn"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 83
+   Device      = "System"
+   Sensor      = "Speed Sensorname"
+   Format      = "Text"
+   Length      = 10
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 84
+   Device      = "System"
+   Sensor      = "True drift"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 2
+   Phys. Unit  = "kn"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 85
+   Device      = "System"
+   Sensor      = "True set"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 2
+   Phys. Unit  = "deg"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 86
+   Device      = "System"
+   Sensor      = "Water speed Sensorname"
+   Format      = "Text"
+   Length      = 10
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 87
+   Device      = "System"
+   Sensor      = "Water speed lon"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 2
+   Phys. Unit  = "kn"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 88
+   Device      = "System"
+   Sensor      = "Water speed trans"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 2
+   Phys. Unit  = "kn"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 89
+   Device      = "System"
+   Sensor      = "Winch Sensorname"
+   Format      = "Text"
+   Length      = 10
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 90
+   Device      = "System"
+   Sensor      = "Wind Sensorname"
+   Format      = "Text"
+   Length      = 10
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 91
+   Device      = "System"
+   Sensor      = "Wind direction"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 2
+   Phys. Unit  = "deg"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 92
+   Device      = "System"
+   Sensor      = "Wind speed"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 2
+   Phys. Unit  = "m/s"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 93
+   Device      = "System"
+   Sensor      = "Wind speed [Beaufort]"
+   Format      = "Int"
+   Length      = 2
+   Precision   = 0
+   Phys. Unit  = "Bf"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 94
+   Device      = "System"
+   Sensor      = "Wind speed [knots]"
+   Format      = "Real"
+   Length      = 8
+   Precision   = 2
+   Phys. Unit  = "kn"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 95
+   Device      = "thermosalinometer bow"
+   Sensor      = "conductivity bow"
+   Format      = "Real"
+   Length      = 10
+   Precision   = 4
+   Phys. Unit  = "mS/cm"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 96
+   Device      = "thermosalinometer bow"
+   Sensor      = "salinity bow"
+   Format      = "Real"
+   Length      = 10
+   Precision   = 4
+   Phys. Unit  = "psu"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 97
+   Device      = "thermosalinometer bow"
+   Sensor      = "sound velocity bow"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 1
+   Phys. Unit  = "m/s"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 98
+   Device      = "thermosalinometer bow"
+   Sensor      = "temperature bow"
+   Format      = "Real"
+   Length      = 10
+   Precision   = 4
+   Phys. Unit  = "�C"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 99
+   Device      = "thermosalinometer bow"
+   Sensor      = "temperature bow internal"
+   Format      = "Real"
+   Length      = 10
+   Precision   = 4
+   Phys. Unit  = "�C"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 100
+   Device      = "thermosalinometer keel"
+   Sensor      = "conductivity keel"
+   Format      = "Real"
+   Length      = 10
+   Precision   = 4
+   Phys. Unit  = "mS/cm"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 101
+   Device      = "thermosalinometer keel"
+   Sensor      = "salinity keel"
+   Format      = "Real"
+   Length      = 10
+   Precision   = 4
+   Phys. Unit  = "psu"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 102
+   Device      = "thermosalinometer keel"
+   Sensor      = "sound velocity keel"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 1
+   Phys. Unit  = "m/s"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 103
+   Device      = "thermosalinometer keel"
+   Sensor      = "temperature keel"
+   Format      = "Real"
+   Length      = 10
+   Precision   = 4
+   Phys. Unit  = "�C"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 104
+   Device      = "thermosalinometer keel"
+   Sensor      = "temperature keel internal"
+   Format      = "Real"
+   Length      = 10
+   Precision   = 4
+   Phys. Unit  = "�C"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 105
+   Device      = "trimble 1 GPS"
+   Sensor      = "Date"
+   Format      = "Text"
+   Length      = 12
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 106
+   Device      = "trimble 1 GPS"
+   Sensor      = "GPS quality indicator"
+   Format      = "Int"
+   Length      = 4
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 107
+   Device      = "trimble 1 GPS"
+   Sensor      = "Time"
+   Format      = "Text"
+   Length      = 8
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 108
+   Device      = "trimble 1 GPS"
+   Sensor      = "UTC"
+   Format      = "Int"
+   Length      = 12
+   Precision   = 0
+   Phys. Unit  = "s"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 109
+   Device      = "trimble 1 GPS"
+   Sensor      = "course made good"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "deg"
+   Calculation = "CycleGrad"
+   Delivered values = Spot 
+Channel 110
+   Device      = "trimble 1 GPS"
+   Sensor      = "day"
+   Format      = "Int"
+   Length      = 5
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 111
+   Device      = "trimble 1 GPS"
+   Sensor      = "month"
+   Format      = "Int"
+   Length      = 5
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 112
+   Device      = "trimble 1 GPS"
+   Sensor      = "number of satellites in fix"
+   Format      = "Int"
+   Length      = 5
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 113
+   Device      = "trimble 1 GPS"
+   Sensor      = "position latitude"
+   Format      = "PosLat"
+   Length      = 13
+   Precision   = 3
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 114
+   Device      = "trimble 1 GPS"
+   Sensor      = "position longitude"
+   Format      = "PosLon"
+   Length      = 13
+   Precision   = 3
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 115
+   Device      = "trimble 1 GPS"
+   Sensor      = "raw time"
+   Format      = "Real"
+   Length      = 9
+   Precision   = 2
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 116
+   Device      = "trimble 1 GPS"
+   Sensor      = "speed made good"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "kn"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 117
+   Device      = "trimble 1 GPS"
+   Sensor      = "year"
+   Format      = "Int"
+   Length      = 7
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 118
+   Device      = "trimble 2 GPS"
+   Sensor      = "Date"
+   Format      = "Text"
+   Length      = 12
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 119
+   Device      = "trimble 2 GPS"
+   Sensor      = "GPS quality indicator"
+   Format      = "Int"
+   Length      = 4
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 120
+   Device      = "trimble 2 GPS"
+   Sensor      = "Time"
+   Format      = "Text"
+   Length      = 8
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 121
+   Device      = "trimble 2 GPS"
+   Sensor      = "UTC"
+   Format      = "Int"
+   Length      = 12
+   Precision   = 0
+   Phys. Unit  = "s"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 122
+   Device      = "trimble 2 GPS"
+   Sensor      = "course made good"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "deg"
+   Calculation = "CycleGrad"
+   Delivered values = Spot 
+Channel 123
+   Device      = "trimble 2 GPS"
+   Sensor      = "day"
+   Format      = "Int"
+   Length      = 2
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 124
+   Device      = "trimble 2 GPS"
+   Sensor      = "month"
+   Format      = "Int"
+   Length      = 2
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 125
+   Device      = "trimble 2 GPS"
+   Sensor      = "number of satellites in fix"
+   Format      = "Int"
+   Length      = 5
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 126
+   Device      = "trimble 2 GPS"
+   Sensor      = "position latitude"
+   Format      = "PosLat"
+   Length      = 12
+   Precision   = 2
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 127
+   Device      = "trimble 2 GPS"
+   Sensor      = "position longitude"
+   Format      = "PosLon"
+   Length      = 12
+   Precision   = 2
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 128
+   Device      = "trimble 2 GPS"
+   Sensor      = "raw time"
+   Format      = "Real"
+   Length      = 9
+   Precision   = 2
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 129
+   Device      = "trimble 2 GPS"
+   Sensor      = "speed made good"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "kn"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 130
+   Device      = "trimble 2 GPS"
+   Sensor      = "year"
+   Format      = "Int"
+   Length      = 4
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 131
+   Device      = "turner fluorometer"
+   Sensor      = "fluor (00)"
+   Format      = "Int"
+   Length      = 4
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 132
+   Device      = "turner fluorometer"
+   Sensor      = "fluor (01)"
+   Format      = "Int"
+   Length      = 4
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 133
+   Device      = "turner fluorometer"
+   Sensor      = "fluoreszenz range (01)"
+   Format      = "Int"
+   Length      = 4
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 134
+   Device      = "turner fluorometer"
+   Sensor      = "fluor (02)"
+   Format      = "Int"
+   Length      = 4
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 135
+   Device      = "turner fluorometer"
+   Sensor      = "fluoreszenz range (02)"
+   Format      = "Int"
+   Length      = 4
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 136
+   Device      = "turner fluorometer"
+   Sensor      = "fluor (03)"
+   Format      = "Int"
+   Length      = 4
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 137
+   Device      = "turner fluorometer"
+   Sensor      = "fluoreszenz range (03)"
+   Format      = "Int"
+   Length      = 4
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 138
+   Device      = "turner fluorometer"
+   Sensor      = "fluor (04)"
+   Format      = "Int"
+   Length      = 4
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 139
+   Device      = "turner fluorometer"
+   Sensor      = "fluoreszenz range (04)"
+   Format      = "Int"
+   Length      = 4
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 140
+   Device      = "turner fluorometer"
+   Sensor      = "fluoreszenz"
+   Format      = "Real"
+   Length      = 7
+   Precision   = 3
+   Phys. Unit  = "V"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 141
+   Device      = "turner fluorometer"
+   Sensor      = "fluoreszenz range"
+   Format      = "Int"
+   Length      = 4
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 142
+   Device      = "weatherstation"
+   Sensor      = "air pressure"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 1
+   Phys. Unit  = "hPa"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 143
+   Device      = "weatherstation"
+   Sensor      = "air temperature"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "�C"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 144
+   Device      = "weatherstation"
+   Sensor      = "ceiling"
+   Format      = "Int"
+   Length      = 6
+   Precision   = 0
+   Phys. Unit  = "ft"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 145
+   Device      = "weatherstation"
+   Sensor      = "dewpoint"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "�C"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 146
+   Device      = "weatherstation"
+   Sensor      = "direct radiation"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "W/m2"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 147
+   Device      = "weatherstation"
+   Sensor      = "global radiation"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "W/m2"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 148
+   Device      = "weatherstation"
+   Sensor      = "max rel. wind velocity last min"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "m/s"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 149
+   Device      = "weatherstation"
+   Sensor      = "precipitation"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 2
+   Phys. Unit  = "mm/min"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 150
+   Device      = "weatherstation"
+   Sensor      = "rel. humidity"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "%"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 151
+   Device      = "weatherstation"
+   Sensor      = "rel. wind direction"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "deg"
+   Calculation = "CycleGrad"
+   Delivered values = Spot 
+Channel 152
+   Device      = "weatherstation"
+   Sensor      = "rel. wind velocity"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "m/s"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 153
+   Device      = "weatherstation"
+   Sensor      = "sunshine indicator"
+   Format      = "Int"
+   Length      = 2
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 154
+   Device      = "weatherstation"
+   Sensor      = "true wind direction"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "deg"
+   Calculation = "CycleGrad"
+   Delivered values = Spot 
+Channel 155
+   Device      = "weatherstation"
+   Sensor      = "true wind velocity"
+   Format      = "Real"
+   Length      = 5
+   Precision   = 1
+   Phys. Unit  = "m/s"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 156
+   Device      = "weatherstation"
+   Sensor      = "visibility"
+   Format      = "Int"
+   Length      = 6
+   Precision   = 0
+   Phys. Unit  = "m"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 157
+   Device      = "weatherstation"
+   Sensor      = "water temperature"
+   Format      = "Real"
+   Length      = 4
+   Precision   = 1
+   Phys. Unit  = "�C"
+   Calculation = "Numeric"
+   Delivered values = Spot 
+Channel 158
+   Device      = "winch"
+   Sensor      = "rope-length (EL30)"
+   Format      = "Real"
+   Length      = 4
+   Precision   = 0
+   Phys. Unit  = "m"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 159
+   Device      = "winch"
+   Sensor      = "rope-peek-of-tension (EL30)"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 2
+   Phys. Unit  = "kN"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 160
+   Device      = "winch"
+   Sensor      = "rope-speed (EL30)"
+   Format      = "Real"
+   Length      = 10
+   Precision   = 4
+   Phys. Unit  = "m/s"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 161
+   Device      = "winch"
+   Sensor      = "rope-tension (EL30)"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 2
+   Phys. Unit  = "kN"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 162
+   Device      = "winch"
+   Sensor      = "winch-ID (EL30)"
+   Format      = "Text"
+   Length      = 6
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 163
+   Device      = "winch"
+   Sensor      = "work-length (EL30)"
+   Format      = "Real"
+   Length      = 8
+   Precision   = 2
+   Phys. Unit  = "m"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 164
+   Device      = "winch"
+   Sensor      = "rope-length (EL31)"
+   Format      = "Real"
+   Length      = 4
+   Precision   = 0
+   Phys. Unit  = "m"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 165
+   Device      = "winch"
+   Sensor      = "rope-peek-of-tension (EL31)"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 2
+   Phys. Unit  = "kN"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 166
+   Device      = "winch"
+   Sensor      = "rope-speed (EL31)"
+   Format      = "Real"
+   Length      = 10
+   Precision   = 4
+   Phys. Unit  = "m/s"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 167
+   Device      = "winch"
+   Sensor      = "rope-tension (EL31)"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 2
+   Phys. Unit  = "kN"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 168
+   Device      = "winch"
+   Sensor      = "winch-ID (EL31)"
+   Format      = "Text"
+   Length      = 6
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 169
+   Device      = "winch"
+   Sensor      = "work-length (EL31)"
+   Format      = "Real"
+   Length      = 8
+   Precision   = 2
+   Phys. Unit  = "m"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 170
+   Device      = "winch"
+   Sensor      = "rope-length (FN62.1)"
+   Format      = "Real"
+   Length      = 4
+   Precision   = 0
+   Phys. Unit  = "m"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 171
+   Device      = "winch"
+   Sensor      = "rope-peek-of-tension (FN62.1)"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 2
+   Phys. Unit  = "kN"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 172
+   Device      = "winch"
+   Sensor      = "rope-speed (FN62.1)"
+   Format      = "Real"
+   Length      = 10
+   Precision   = 4
+   Phys. Unit  = "m/s"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 173
+   Device      = "winch"
+   Sensor      = "rope-tension (FN62.1)"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 2
+   Phys. Unit  = "kN"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 174
+   Device      = "winch"
+   Sensor      = "winch-ID (FN62.1)"
+   Format      = "Text"
+   Length      = 6
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 175
+   Device      = "winch"
+   Sensor      = "work-length (FN62.1)"
+   Format      = "Real"
+   Length      = 8
+   Precision   = 2
+   Phys. Unit  = "m"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 176
+   Device      = "winch"
+   Sensor      = "rope-length (FN62.2)"
+   Format      = "Real"
+   Length      = 4
+   Precision   = 0
+   Phys. Unit  = "m"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 177
+   Device      = "winch"
+   Sensor      = "rope-peek-of-tension (FN62.2)"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 2
+   Phys. Unit  = "kN"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 178
+   Device      = "winch"
+   Sensor      = "rope-speed (FN62.2)"
+   Format      = "Real"
+   Length      = 10
+   Precision   = 4
+   Phys. Unit  = "m/s"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 179
+   Device      = "winch"
+   Sensor      = "rope-tension (FN62.2)"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 2
+   Phys. Unit  = "kN"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 180
+   Device      = "winch"
+   Sensor      = "winch-ID (FN62.2)"
+   Format      = "Text"
+   Length      = 6
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 181
+   Device      = "winch"
+   Sensor      = "work-length (FN62.2)"
+   Format      = "Real"
+   Length      = 8
+   Precision   = 2
+   Phys. Unit  = "m"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 182
+   Device      = "winch"
+   Sensor      = "rope-length (GE52.1)"
+   Format      = "Real"
+   Length      = 4
+   Precision   = 0
+   Phys. Unit  = "m"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 183
+   Device      = "winch"
+   Sensor      = "rope-peek-of-tension (GE52.1)"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 2
+   Phys. Unit  = "kN"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 184
+   Device      = "winch"
+   Sensor      = "rope-speed (GE52.1)"
+   Format      = "Real"
+   Length      = 10
+   Precision   = 4
+   Phys. Unit  = "m/s"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 185
+   Device      = "winch"
+   Sensor      = "rope-tension (GE52.1)"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 2
+   Phys. Unit  = "kN"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 186
+   Device      = "winch"
+   Sensor      = "winch-ID (GE52.1)"
+   Format      = "Text"
+   Length      = 6
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 187
+   Device      = "winch"
+   Sensor      = "work-length (GE52.1)"
+   Format      = "Real"
+   Length      = 8
+   Precision   = 2
+   Phys. Unit  = "m"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 188
+   Device      = "winch"
+   Sensor      = "rope-length (GE52.2)"
+   Format      = "Real"
+   Length      = 4
+   Precision   = 0
+   Phys. Unit  = "m"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 189
+   Device      = "winch"
+   Sensor      = "rope-peek-of-tension (GE52.2)"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 2
+   Phys. Unit  = "kN"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 190
+   Device      = "winch"
+   Sensor      = "rope-speed (GE52.2)"
+   Format      = "Real"
+   Length      = 10
+   Precision   = 4
+   Phys. Unit  = "m/s"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 191
+   Device      = "winch"
+   Sensor      = "rope-tension (GE52.2)"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 2
+   Phys. Unit  = "kN"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 192
+   Device      = "winch"
+   Sensor      = "winch-ID (GE52.2)"
+   Format      = "Text"
+   Length      = 6
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 193
+   Device      = "winch"
+   Sensor      = "work-length (GE52.2)"
+   Format      = "Real"
+   Length      = 8
+   Precision   = 2
+   Phys. Unit  = "m"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 194
+   Device      = "winch"
+   Sensor      = "rope-length (GE72.1)"
+   Format      = "Real"
+   Length      = 4
+   Precision   = 0
+   Phys. Unit  = "m"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 195
+   Device      = "winch"
+   Sensor      = "rope-peek-of-tension (GE72.1)"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 2
+   Phys. Unit  = "kN"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 196
+   Device      = "winch"
+   Sensor      = "rope-speed (GE72.1)"
+   Format      = "Real"
+   Length      = 10
+   Precision   = 4
+   Phys. Unit  = "m/s"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 197
+   Device      = "winch"
+   Sensor      = "rope-tension (GE72.1)"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 2
+   Phys. Unit  = "kN"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 198
+   Device      = "winch"
+   Sensor      = "winch-ID (GE72.1)"
+   Format      = "Text"
+   Length      = 6
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 199
+   Device      = "winch"
+   Sensor      = "work-length (GE72.1)"
+   Format      = "Real"
+   Length      = 8
+   Precision   = 2
+   Phys. Unit  = "m"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 200
+   Device      = "winch"
+   Sensor      = "rope-length (SE32.1)"
+   Format      = "Real"
+   Length      = 4
+   Precision   = 0
+   Phys. Unit  = "m"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 201
+   Device      = "winch"
+   Sensor      = "rope-peek-of-tension (SE32.1)"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 2
+   Phys. Unit  = "kN"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 202
+   Device      = "winch"
+   Sensor      = "rope-speed (SE32.1)"
+   Format      = "Real"
+   Length      = 10
+   Precision   = 4
+   Phys. Unit  = "m/s"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 203
+   Device      = "winch"
+   Sensor      = "rope-tension (SE32.1)"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 2
+   Phys. Unit  = "kN"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 204
+   Device      = "winch"
+   Sensor      = "winch-ID (SE32.1)"
+   Format      = "Text"
+   Length      = 6
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 205
+   Device      = "winch"
+   Sensor      = "work-length (SE32.1)"
+   Format      = "Real"
+   Length      = 8
+   Precision   = 2
+   Phys. Unit  = "m"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 206
+   Device      = "winch"
+   Sensor      = "rope-length (SE32.2)"
+   Format      = "Real"
+   Length      = 4
+   Precision   = 0
+   Phys. Unit  = "m"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 207
+   Device      = "winch"
+   Sensor      = "rope-peek-of-tension (SE32.2)"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 2
+   Phys. Unit  = "kN"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 208
+   Device      = "winch"
+   Sensor      = "rope-speed (SE32.2)"
+   Format      = "Real"
+   Length      = 10
+   Precision   = 4
+   Phys. Unit  = "m/s"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 209
+   Device      = "winch"
+   Sensor      = "rope-tension (SE32.2)"
+   Format      = "Real"
+   Length      = 6
+   Precision   = 2
+   Phys. Unit  = "kN"
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 210
+   Device      = "winch"
+   Sensor      = "winch-ID (SE32.2)"
+   Format      = "Text"
+   Length      = 6
+   Precision   = 0
+   Phys. Unit  = ""
+   Calculation = "None"
+   Delivered values = Spot 
+Channel 211
+   Device      = "winch"
+   Sensor      = "work-length (SE32.2)"
+   Format      = "Real"
+   Length      = 8
+   Precision   = 2
+   Phys. Unit  = "m"
+   Calculation = "None"
+   Delivered values = Spot 

@@ -120,6 +120,7 @@
             content.innerHTML = "";
             var claves = Object.keys(propiedades);
             claves = claves.filter(item => item != "geometry");
+            claves = claves.filter(item => item != "type");
             claves = claves.filter(item => item != "styleUrl");
             claves.forEach(function(clave){
               if (propiedades[clave] != ""){
@@ -145,12 +146,12 @@
         var styleFunction = function(feature) {
           var propiedades = feature.getProperties();
           var rotation = (propiedades['angulo'] * Math.PI) / 180;
-          if (propiedades['type']==='point'){
+          if (propiedades['type']==='point' && propiedades['angulo']!= ""){
             style = new ol.style.Style({
               image: new ol.style.Icon({
                 src: './images/arrow.png',
                 opacity: 1,
-                scale: 0.2,
+                scale: 0.1,
                 rotateWithView: true,
                 rotation: rotation
               })
