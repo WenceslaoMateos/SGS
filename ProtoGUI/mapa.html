@@ -179,7 +179,7 @@
 
         map.on('moveend', changeVector);
 
-        var select = new ol.interaction.Select({condition: ol.events.condition.pointerMove});
+        var select = new ol.interaction.Select({condition: ol.events.condition.click});
         map.addInteraction(select);
         select.on('select', hacerCuandoSeleccione,this);
     </script>

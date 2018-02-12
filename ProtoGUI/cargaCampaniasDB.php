@@ -194,7 +194,7 @@ for ($k = 0; $k < $m ; $k++){
         $lineas = file($name); 
         $n = count($lineas);
         $j = 0;
-        for($i = 4; ($i < 400000) && ($i < $n); $i++){
+        for($i = 4; ($i < 50000) && ($i < $n); $i++){
             $arrayLinea = explode("\t", $lineas[$i]); 
             //echo $i . ' --- ';
             if (camposValidos($arrayLinea, $claves)){
