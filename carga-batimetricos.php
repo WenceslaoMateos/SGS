@@ -45,7 +45,7 @@
     else{
         $filename= "map.pdf";
         $name = $_FILES['adjunto']['tmp_name']; 
-        exec("grdview $name " .  $_POST["-Wc"] ." -B1a2 -BWSneZ+b+tmapitachoto -JM-57/-38/7i " . $_POST["-Q"] . " -JZ4i -P -p170/20 -Cseafloor2.cpt > map.ps");
+        exec("grdview $name " .  $_POST["-Wc"] ." -B1a2 -BWSneZ+b+tBatimetrico -JM-57/-38/7i " . $_POST["-Q"] . " -JZ4i -P -p170/20 -Cseafloor2.cpt > map.ps");
         exec("psconvert -Tf -Z -A4 -E720 map.ps");
         header("Content-type: application/octet-stream");
         header("Content-disposition: attachment;filename=$filename");

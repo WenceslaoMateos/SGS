@@ -1,7 +1,6 @@
 <?php
 
 function constantSet($datos){
-    //CONSTANT
     $ret = array();
     $n = count($datos["sensor"]);
     for ($i = 0; $i < $n; $i++){
@@ -189,7 +188,6 @@ for ($k = 0; $k < $m ; $k++){
 
         //LECTURA DE DATOS A CARGAR Y CARGA DE DATOS EN LA BASE DE DATOS.
 
-        //no se por que no me deja abrir el archivo 
         $claves = constantSet($tDatos[$k]);
         $lineas = file($name); 
         $n = count($lineas);
@@ -202,7 +200,7 @@ for ($k = 0; $k < $m ; $k++){
                 $latitud = GPS2degree(trim($arrayLinea[$claves["position latitude"]]));
                 $longitud = GPS2degree(trim($arrayLinea[$claves["position longitude"]]));     
                 
-                //se genera el punto para despues poder indexar espacialmente.
+                //se genera el punto para despues poder indexar espacialmente por punto.
                 $geom = "'POINT($longitud $latitud)'";
                 $point = "GeomFromText($geom)";
 
