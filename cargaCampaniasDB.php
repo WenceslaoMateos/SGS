@@ -147,9 +147,9 @@ function date2when($fecha,$hora)
 
 //CONECCION CON LA BASE DE DATOS.
 $servername = "localhost";
-$username = "wen";
-$password = "wen";
-$dbname = "sgs";
+$username = "wence";
+$password = "wence";
+$dbname = "SGS";
 $conn =new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error){
@@ -162,7 +162,7 @@ $names = $_FILES['camp']['tmp_name'];
 $dbtables = $_FILES['camp']['name'];
 $fileTypes = $_FILES['camp']['type']; 
 $formatos = $_FILES['formato']['tmp_name'];
-
+//print_r( $names);
 $tDatos = parsingTDatos($formatos);
 
 $m = count($names);

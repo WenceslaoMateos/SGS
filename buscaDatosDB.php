@@ -30,9 +30,9 @@ $kml .= '  <Document>'."\n";
 
 //CONECCION CON LA BASE DE DATOS.
 $servername = "localhost";
-$username = "wen";
-$password = "wen";
-$dbname = "sgs";
+$username = "wence";
+$password = "wence";
+$dbname = "SGS";
 $conn =new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error){
     die("Connection failed: " . $conn->connect_error);
