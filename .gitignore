@@ -9,3 +9,5 @@
 *.nc
 *.history
 *.txt
+openlayers
+bootstrap
