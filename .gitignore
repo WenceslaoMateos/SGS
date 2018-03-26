@@ -9,6 +9,10 @@
 *.nc
 *.history
 *.txt
+*.tiff
+*.vrt
+*.bsb
+*.kap
 openlayers
 bootstrap
 Arg
