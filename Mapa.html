@@ -98,6 +98,23 @@
           })
         });
 
+        var mapResolutions = [];
+        for (var z = 0; z <= 7; z++) {
+          mapResolutions.push(Math.pow(2, 7 - z) * 0.00549316);  
+        }
+
+        var hidroArg = new ol.layer.Tile({
+          source: new ol.source.XYZ({
+            projection: 'EPSG:3857',
+            /*tileGrid: new ol.tilegrid.TileGrid({
+              extent: [-180, -90, 180, 90],
+              minZoom: 1,
+              resolutions: mapResolutions
+            }),*/
+            url: "./Arg/{z}/{x}/{-y}.png"
+          })
+        });
+
         var openSeaMapLayer = new ol.layer.Tile({
           source: new ol.source.OSM({
             attributions: [
@@ -114,7 +131,7 @@
         });
 
         var map = new ol.Map({
-          layers: [openStreetMap , openSeaMapLayer , vector],
+          layers: [openStreetMap , openSeaMapLayer , hidroArg, vector],
           target: 'map',
           overlays: [overlay],
           view: new ol.View({
