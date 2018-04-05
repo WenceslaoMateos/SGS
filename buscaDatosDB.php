@@ -55,8 +55,8 @@ for ($j = 0; $tabla = $tablas->fetch_assoc(); $j++){
                         $x1 $y1))'";
     $geometria = "ST_GeomFromText($poligono)";
     $sql = "SELECT latitud, longitud, time, velocidad, angulo, profundidad 
-            FROM ".$tabla["Tables_in_sgs"]." 
-            WHERE MBRwithin(point, $geometria);";
+            FROM ".$tabla["Tables_in_sgs"].";"; 
+            //WHERE MBRwithin(point, $geometria);";
     //al ser una sola query no es necesario hacer commit ni comenzar transacción.
     $result = $conn->query($sql);
 
