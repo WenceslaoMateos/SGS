@@ -13,4 +13,5 @@ REM -p#A/#B: #A marca la rotación del grafico y #B lo ensancha o achata
 
 grdview map2.tmp -Wc -B1a2 -BWSneZ+b+tmapitachoto -JM-57/-38/7i -Qs -JZ4i -P -p170/20 -Cseafloor2.cpt > map.ps
 psconvert -Tf map.ps
+del map.ps  
 map.pdf
