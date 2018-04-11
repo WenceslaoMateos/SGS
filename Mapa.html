@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="./openlayers/ol.css" type="text/css">
      <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
-    <script src="./openlayers/ol.js"></script>
+    <script src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
@@ -99,9 +99,9 @@
         });
 
         var mapResolutions = [];
-        for (var z = 0; z <= 7; z++) {
-          mapResolutions.push(Math.pow(2, 7 - z) * 0.00549316);  
-        }
+        for (var i = 0; i <= 8; ++i) {
+          mapResolutions.push(156543.03392804097 / Math.pow(2, i * 2));
+        }  
 
         var hidroArg = new ol.layer.Tile({
           source: new ol.source.XYZ({
@@ -212,8 +212,9 @@
           }));
           vector.setStyle(styleFunction);
         };
-
-        map.on('moveend', changeVector);
+        
+        changeVector();
+        //map.on('moveend', changeVector);
 
         var select = new ol.interaction.Select({condition: ol.events.condition.click});
         map.addInteraction(select);
