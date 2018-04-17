@@ -15,7 +15,8 @@
 *.kap
 openlayers
 bootstrap
-Arg
+Arg*
+Mapas
 temp
 GMT Docs
 datos
