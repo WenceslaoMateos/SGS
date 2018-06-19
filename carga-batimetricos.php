@@ -13,7 +13,7 @@
     <body>
     <?php
 	if (!array_key_exists('Enviar',$_POST)) {
-    ?>
+        ?>
         <form method="post" name="archivo" enctype="multipart/form-data">
             <table class="table">
                 <tr>
