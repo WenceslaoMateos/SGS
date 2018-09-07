@@ -197,7 +197,7 @@ $(document).ready(function(){
       if (barco){
           $.ajax({
               type:'POST',
-              url:'/Servidor/CursoPHP/TrabajoFInal/TrabajoFinalPHP/ajaxData.php',
+              url:'/Servidor/Barcos/ProtoMap/ajaxData.php',
               data:{
                   barco: barco
               },
