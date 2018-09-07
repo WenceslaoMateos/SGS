@@ -158,6 +158,8 @@ if ($conn->connect_error){
 ini_set('max_execution_time', -1);
 ini_set('memory_limit', '-1'); //MUCHO CUIDADO AVERIGUAR POR LAS DUDAS!!!!!!!!//
 
+$campania = $_REQUEST['campania'];
+$barco = $_REQUEST['barco'];
 $names = $_FILES['camp']['tmp_name'];
 $dbtables = $_FILES['camp']['name'];
 $fileTypes = $_FILES['camp']['type']; 
@@ -167,6 +169,80 @@ $tDatos = parsingTDatos($formatos);
 
 $m = count($names);
 
+//$conn->autocommit(FALSE);
+for ($k = 0; $k < $m ; $k++){
+
+    $fileType = $fileTypes[$k]; 
+    //echo  "<br>" . $k . "<br>";
+    if (strcasecmp($fileType,".dat") != 0){
+        $name = $names[$k];
+
+        $conn->begin_transaction();
+        //se le indica a la base de datos que se le va a pasar un conjunto grande de querys.
+        //------------------------------------------------------------
+
+        //LECTURA DE DATOS A CARGAR Y CARGA DE DATOS EN LA BASE DE DATOS.
+
+        $claves = constantSet($tDatos[$k]);
+        $lineas = file($name); 
+        $n = count($lineas);    
+        $j = 0;
+        for($i = 4; ($i < 100000) && ($i < $n); $i++){
+            $arrayLinea = explode("\t", $lineas[$i]); 
+            //echo $i . ' --- ';
+            if (camposValidos($arrayLinea, $claves)){
+                $time = date2when(trim($arrayLinea[$claves["Date"]]), trim($arrayLinea[$claves["Time"]]));
+                $latitud = GPS2degree(trim($arrayLinea[$claves["position latitude"]]));
+                $longitud = GPS2degree(trim($arrayLinea[$claves["position longitude"]]));     
+                
+                //se genera el punto para despues poder indexar espacialmente por punto.
+                $geom = "'POINT($longitud $latitud)'";
+                $point = "GeomFromText($geom)";
+
+                $nombres = "";
+                $valores = "";
+                
+                //Al punto insertado le agrega la velocidad en caso de ser valida.
+                if (isset($claves["speed"])){
+                    $speed = $arrayLinea[$claves["speed"]];
+                    if (valido($speed, 5, 1)){
+                        $nombres .= ", velocidad";
+                        $valores .= ", $speed";
+                    }
+                }
+                //Al punto insertado le agrega la profundidad en caso de ser valida.
+                if (isset($claves["depth"])){
+                    $depth = $arrayLinea[$claves["depth"]];
+                    if (valido($depth, 5)){
+                        $nombres .= ", profundidad";
+                        $valores .= ", $depth";
+                    }
+                }
+            
+                //Al punto insertado le agrega el angulo en caso de ser valido.
+                if (isset($claves["system heading"])){
+                    $heading = $arrayLinea[$claves["system heading"]];
+                    if (valido($heading, 5, 1)){
+                        $nombres .= ", angulo";
+                        $valores .= ", $heading";
+                    }
+                }
+                
+                //Inserta el punto en la base de datos.
+                $sql = "INSERT INTO mediciones (id, datetime, longitud, latitud, punto , idcampania) 
+                        VALUES ($j,'$time', $longitud, $latitud, $point , $campania);";
+                $conn->query($sql);
+
+                $j++;
+            }
+        }
+            
+        $conn->commit();
+        //avisa a la base de datos que ya se pueden hacer todas las operaciones antes solicitadas.
+    }
+}
+
+/*
 //$conn->autocommit(FALSE);
 for ($k = 0; $k < $m ; $k++){
 
@@ -245,8 +321,11 @@ for ($k = 0; $k < $m ; $k++){
         $conn->commit();
         //avisa a la base de datos que ya se pueden hacer todas las operaciones antes solicitadas.
     }
-}
+}*/
     /* El mensaje de error para los logs va a entrar acá */
 
 //CIERRE DE LA BASE DE DATOS.
 $conn->close();
+
+header("location: cargar-mediciones.php");
+die();

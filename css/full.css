@@ -1,0 +1,60 @@
+div.etiquetas{
+  margin-left: 0;
+}
+
+img.logo{
+  min-width: 5%;
+  max-width: 10%;
+  height: auto;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin-right: 2rem;
+}
+
+img.home{
+  width: 15rem;
+  height: 15rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin-right: 2rem;
+}
+
+.carrusel{
+  text-shadow: 2px 1px black;
+}
+
+aside{
+  overflow: scroll;
+}
+
+main{
+  height: 27rem;
+  margin-bottom: 10 rem;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.main{
+  height: 28rem;
+  margin-bottom: 10 rem;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+div.jumbotron{
+  padding: 1rem;
+}
+
+header{
+  z-index: 99999;
+  position: sticky;
+  top: 0;
+}
+
+footer{
+  bottom: 0;
+}
+
+.form-archivo{
+  padding-top: 2rem;
+}

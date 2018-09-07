@@ -13,8 +13,8 @@
 *.vrt
 *.bsb
 *.kap
-openlayers
 bootstrap
+openlayers
 images
 Mapas
 temp
