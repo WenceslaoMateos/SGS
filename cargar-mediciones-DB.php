@@ -173,7 +173,6 @@ $m = count($names);
 
 //$conn->autocommit(FALSE);
 for ($k = 0; $k < $m; $k++) {
-
     $fileType = $fileTypes[$k]; 
     //echo  "<br>" . $k . "<br>";
     if (strcasecmp($fileType, ".dat") != 0) {
