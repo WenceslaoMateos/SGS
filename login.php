@@ -7,26 +7,25 @@ $permiso = 0;
 require('templates/coneccion.php');
 
 
-if(isset($_REQUEST['email']) && $_REQUEST['email'] != ""){
+if (isset($_REQUEST['email']) && $_REQUEST['email'] != "") {
     $email = $_REQUEST['email'];
     $contra = $_REQUEST['contrasena'];
     $contra = md5($contra);
-    
+
     $usuario = mysqli_query($db, "SELECT * FROM usuarios WHERE email = '$email' and contrasena = '$contra';");
-    if(mysqli_num_rows($usuario) > 0){
+    if (mysqli_num_rows($usuario) > 0) {
         $usuario_db = mysqli_fetch_assoc($usuario);
         $_SESSION['id'] = $usuario_db['id'];
         $_SESSION['permiso'] = $usuario_db['permiso'];
         session_write_close();
         header('location: mapa.php');
         die();
-    }
-    else{
+    } else {
         $msg_error = 1;
     }
 }
 
-if (isset($_REQUEST['nuevo_contrasena']) && isset($_REQUEST['nuevo_email'])){
+if (isset($_REQUEST['nuevo_contrasena']) && isset($_REQUEST['nuevo_email'])) {
     $email = $_REQUEST['nuevo_email'];
     $nom = $_REQUEST['nombre'];
     $apell = $_REQUEST['apellido'];
@@ -43,10 +42,10 @@ if (isset($_REQUEST['nuevo_contrasena']) && isset($_REQUEST['nuevo_email'])){
 <html lang="en">
     <head>
         <title>Log In</title>
-        <?php include('templates/inicial/head.php');?>  
+        <?php include('templates/inicial/head.php'); ?>  
     </head>
     <body>
-        <?php include('templates/inicial/header.php');?>  
+        <?php include('templates/inicial/header.php'); ?>  
         <main>
             <div class="jumbotron jumbotron-sm">
                 <div class="container">
@@ -61,9 +60,10 @@ if (isset($_REQUEST['nuevo_contrasena']) && isset($_REQUEST['nuevo_email'])){
                 <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
                     <div class="panel panel-info" >
                         <div style="padding-top:30px" class="panel-body" >
-                        <?php if($msg_error == 1){?>
+                        <?php if ($msg_error == 1) { ?>
                         <div id="acceso_incorrecto" class="alert alert-warning">Nombre de usuario o contraseña incorrecto</div>
-                        <?php } ?>
+                        <?php 
+                    } ?>
                             <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
                             <form id="loginform" class="form-horizontal" role="form" method="post">
                                 <div style="margin-bottom: 25px" class="input-group">
@@ -143,7 +143,7 @@ if (isset($_REQUEST['nuevo_contrasena']) && isset($_REQUEST['nuevo_email'])){
                 </div> 
             </div>
         </main>
-        <?php include('templates/inicial/footer.php');?>  
+        <?php include('templates/inicial/footer.php'); ?>  
         <script>
             $()
             $('ul li:nth-child(3)').addClass('active');

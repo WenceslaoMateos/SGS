@@ -1,18 +1,20 @@
 <?php
 
-function constantSet($datos){
+function constantSet($datos)
+{
     $ret = array();
     $n = count($datos["sensor"]);
-    for ($i = 0; $i < $n; $i++){
-        $ret[$datos["sensor"][$i]] = $i+2;
+    for ($i = 0; $i < $n; $i++) {
+        $ret[$datos["sensor"][$i]] = $i + 2;
     }
     return $ret;
 }
 
-function parsingTDatos($archivos){
+function parsingTDatos($archivos)
+{
     $ret = array();
     $m = count($archivos);
-    for ($j = 0; $j < $m; $j++){
+    for ($j = 0; $j < $m; $j++) {
         $archivo = $archivos[$j];
         $array = file($archivo);
         $n = count($array);
@@ -27,28 +29,28 @@ function parsingTDatos($archivos){
             "valores" => array()
         );
         $i = 0;
-        while ($i < $n){
-            if (substr($array[$i], 0, 8) == 'Channel '){
+        while ($i < $n) {
+            if (substr($array[$i], 0, 8) == 'Channel ') {
                 $i++;
-                $ret[$j]["dispositivo"][] = trim(str_replace("\"","",substr($array[$i], 16, 50)));
+                $ret[$j]["dispositivo"][] = trim(str_replace("\"", "", substr($array[$i], 16, 50)));
                 $i++;
-                $ret[$j]["sensor"][] = trim(str_replace("\"","",substr($array[$i], 16, 50)));
+                $ret[$j]["sensor"][] = trim(str_replace("\"", "", substr($array[$i], 16, 50)));
                 $i++;
-                $ret[$j]["formato"][] = trim(str_replace("\"","",substr($array[$i], 16, 50)));
+                $ret[$j]["formato"][] = trim(str_replace("\"", "", substr($array[$i], 16, 50)));
                 $i++;
-                $ret[$j]["longitud"][] = trim(str_replace("\"","",substr($array[$i], 16, 50)));
+                $ret[$j]["longitud"][] = trim(str_replace("\"", "", substr($array[$i], 16, 50)));
                 $i++;
-                $ret[$j]["precision"][] = trim(str_replace("\"","",substr($array[$i], 16, 50)));
+                $ret[$j]["precision"][] = trim(str_replace("\"", "", substr($array[$i], 16, 50)));
                 $i++;
-                $ret[$j]["unidades"][] = trim(str_replace("\"","",substr($array[$i], 16, 50)));
+                $ret[$j]["unidades"][] = trim(str_replace("\"", "", substr($array[$i], 16, 50)));
                 $i++;
-                $ret[$j]["calculo"][] = trim(str_replace("\"","",substr($array[$i], 16, 50)));
+                $ret[$j]["calculo"][] = trim(str_replace("\"", "", substr($array[$i], 16, 50)));
                 $i++;
-                $ret[$j]["valores"][] = trim(str_replace("\"","",substr($array[$i], 22, 50)));
+                $ret[$j]["valores"][] = trim(str_replace("\"", "", substr($array[$i], 22, 50)));
             }
             $i++;
         }
-    }   
+    }
     return $ret;
 }
 
@@ -62,18 +64,18 @@ function parsingTDatos($archivos){
  * @param string $coordenada Coordenada indicada en un string con formato G M O.
  * @return float $ret Coordenada en grados con minutos, segundoa y orientación incluidos.
  */
-function GPS2degree($coordenada){
-    $array = preg_split('/\s+/',  $coordenada);
+function GPS2degree($coordenada)
+{
+    $array = preg_split('/\s+/', $coordenada);
     $ret = $array[0];
-    if (is_numeric($array[1])){
+    if (is_numeric($array[1])) {
         $ret += $array[1] / 60;
-    }
-    else {
-        if ($array[1] == "S" || $array[1] == "W"){
+    } else {
+        if ($array[1] == "S" || $array[1] == "W") {
             $ret = $ret * -1;
         }
     }
-    if ($array[2] == "S" || $array[2] == "W"){
+    if ($array[2] == "S" || $array[2] == "W") {
         $ret = $ret * -1;
     }
     return $ret;
@@ -87,20 +89,20 @@ function GPS2degree($coordenada){
  * @param integer $precision Cantidad de decimales que el numero posee.
  * @return boolean $ret En caso de que el dato sea valido devuelve true, false en caso contrario.
  */
-function valido($dato, $length=5, $precision = 0){
+function valido($dato, $length = 5, $precision = 0)
+{
     $format = 0;
-    if($precision == 0){
-        for ($i = 0; $i < $length; $i++){
+    if ($precision == 0) {
+        for ($i = 0; $i < $length; $i++) {
             $format = ($format * 10) + 9;
         }
         $ret = ($format == abs($dato));
-    }
-    else{
-        for ($i = 0; $i < ($length-$precision-1); $i++){
+    } else {
+        for ($i = 0; $i < ($length - $precision - 1); $i++) {
             $format = $format * 10 + 9;
         }
         $decim = 0;
-        for ($i = 0; $i < $precision; $i++){
+        for ($i = 0; $i < $precision; $i++) {
             $decim = ($decim + 9) / 10;
         }
         $ret = !(($format + $decim) == abs($dato));
@@ -116,7 +118,7 @@ function valido($dato, $length=5, $precision = 0){
  * elementos representa una medición.
  * @return void
  */
-function camposValidos($array,$claves)
+function camposValidos($array, $claves)
 {
     $ret = !empty(trim($array[$claves["Date"]]));
     $ret = $ret && !empty(trim($array[$claves["Time"]]));
@@ -133,9 +135,9 @@ function camposValidos($array,$claves)
  * @param string $hora Hora de la medición. Formato: HH:MM:SS.
  * @return string fecha y hora juntas con el formato indicado.
  */
-function date2when($fecha,$hora)
+function date2when($fecha, $hora)
 {
-    $aux = explode("." , $fecha);
+    $aux = explode(".", $fecha);
     $fecha = join("-", array($aux[2], $aux[1], $aux[0]));
     return $fecha . " " . $hora;
 }
@@ -150,9 +152,9 @@ $servername = "localhost";
 $username = "wence";
 $password = "wence";
 $dbname = "SGS";
-$conn =new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-if ($conn->connect_error){
+if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 ini_set('max_execution_time', -1);
@@ -162,7 +164,7 @@ $campania = $_REQUEST['campania'];
 $barco = $_REQUEST['barco'];
 $names = $_FILES['camp']['tmp_name'];
 $dbtables = $_FILES['camp']['name'];
-$fileTypes = $_FILES['camp']['type']; 
+$fileTypes = $_FILES['camp']['type'];
 $formatos = $_FILES['formato']['tmp_name'];
 //print_r( $names);
 $tDatos = parsingTDatos($formatos);
@@ -170,11 +172,11 @@ $tDatos = parsingTDatos($formatos);
 $m = count($names);
 
 //$conn->autocommit(FALSE);
-for ($k = 0; $k < $m ; $k++){
+for ($k = 0; $k < $m; $k++) {
 
     $fileType = $fileTypes[$k]; 
     //echo  "<br>" . $k . "<br>";
-    if (strcasecmp($fileType,".dat") != 0){
+    if (strcasecmp($fileType, ".dat") != 0) {
         $name = $names[$k];
 
         $conn->begin_transaction();
@@ -184,13 +186,13 @@ for ($k = 0; $k < $m ; $k++){
         //LECTURA DE DATOS A CARGAR Y CARGA DE DATOS EN LA BASE DE DATOS.
 
         $claves = constantSet($tDatos[$k]);
-        $lineas = file($name); 
-        $n = count($lineas);    
+        $lineas = file($name);
+        $n = count($lineas);
         $j = 0;
-        for($i = 4; ($i < 100000) && ($i < $n); $i++){
+        for ($i = 4; ($i < 100000) && ($i < $n); $i++) {
             $arrayLinea = explode("\t", $lineas[$i]); 
             //echo $i . ' --- ';
-            if (camposValidos($arrayLinea, $claves)){
+            if (camposValidos($arrayLinea, $claves)) {
                 $time = date2when(trim($arrayLinea[$claves["Date"]]), trim($arrayLinea[$claves["Time"]]));
                 $latitud = GPS2degree(trim($arrayLinea[$claves["position latitude"]]));
                 $longitud = GPS2degree(trim($arrayLinea[$claves["position longitude"]]));     
@@ -203,26 +205,26 @@ for ($k = 0; $k < $m ; $k++){
                 $valores = "";
                 
                 //Al punto insertado le agrega la velocidad en caso de ser valida.
-                if (isset($claves["speed"])){
+                if (isset($claves["speed"])) {
                     $speed = $arrayLinea[$claves["speed"]];
-                    if (valido($speed, 5, 1)){
+                    if (valido($speed, 5, 1)) {
                         $nombres .= ", velocidad";
                         $valores .= ", $speed";
                     }
                 }
                 //Al punto insertado le agrega la profundidad en caso de ser valida.
-                if (isset($claves["depth"])){
+                if (isset($claves["depth"])) {
                     $depth = $arrayLinea[$claves["depth"]];
-                    if (valido($depth, 5)){
+                    if (valido($depth, 5)) {
                         $nombres .= ", profundidad";
                         $valores .= ", $depth";
                     }
                 }
             
                 //Al punto insertado le agrega el angulo en caso de ser valido.
-                if (isset($claves["system heading"])){
+                if (isset($claves["system heading"])) {
                     $heading = $arrayLinea[$claves["system heading"]];
-                    if (valido($heading, 5, 1)){
+                    if (valido($heading, 5, 1)) {
                         $nombres .= ", angulo";
                         $valores .= ", $heading";
                     }
@@ -236,7 +238,7 @@ for ($k = 0; $k < $m ; $k++){
                 $j++;
             }
         }
-            
+
         $conn->commit();
         //avisa a la base de datos que ya se pueden hacer todas las operaciones antes solicitadas.
     }

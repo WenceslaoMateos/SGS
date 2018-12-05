@@ -12,10 +12,10 @@ require('templates/coneccion.php');
 <html>
     <head>
         <title>Carga de barcos</title>
-        <?php include('templates/inicial/head.php');?>  
+        <?php include('templates/inicial/head.php'); ?>  
     </head>
 <body>
-    <?php include('templates/online/header.php');?>  
+    <?php include('templates/online/header.php'); ?>  
     <main>
         <div class="jumbotron jumbotron-sm">
             <div class="container">
@@ -39,7 +39,7 @@ require('templates/coneccion.php');
         </div>
         </div>
     </main>
-    <?php include('templates/inicial/footer.php');?>      
+    <?php include('templates/inicial/footer.php'); ?>      
     <script>
         $('ul li:nth-child(2)').addClass('active');
         $('ul li:nth-child(2) a').addClass('active').append('<span class="sr-only">(current)</span>');

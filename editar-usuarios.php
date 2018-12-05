@@ -7,9 +7,9 @@ $permiso = 4294967295;
 require('templates/coneccion.php');
 
 $sql = mysqli_query($db, 'SELECT * FROM usuarios;');
-$usr_listado="";
-if($sql){
-    while($usuario = mysqli_fetch_array($sql)){
+$usr_listado = "";
+if ($sql) {
+    while ($usuario = mysqli_fetch_array($sql)) {
         $usr_listado .= '
         <tr>
         <td>' . $usuario['id'] . '</td>
@@ -30,10 +30,10 @@ if($sql){
 <html>
     <head>
         <title>Edicion de Usuarios</title>
-        <?php include('templates/inicial/head.php');?>  
+        <?php include('templates/inicial/head.php'); ?>  
     </head>
     <body>
-    <?php include('templates/online/header.php');?>  
+    <?php include('templates/online/header.php'); ?>  
         <div class="jumbotron jumbotron-sm">
             <div class="container">
                 <div class="row">
@@ -67,13 +67,13 @@ if($sql){
                             </tr>
                         </thead>    
                         <tbody>
-                            <?php echo $usr_listado;?>
+                            <?php echo $usr_listado; ?>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        <?php include('templates/inicial/footer.php');?>      
+        <?php include('templates/inicial/footer.php'); ?>      
         <script>
             $('ul li:nth-child(3)').addClass('active');
             $('ul li:nth-child(3) a').addClass('active').append('<span class="sr-only">(current)</span>');

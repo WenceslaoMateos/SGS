@@ -7,9 +7,9 @@ $permiso = 50;
 require('templates/coneccion.php');
 
 $sql = mysqli_query($db, 'SELECT campanias.id, campanias.nombre, barcos.nombre AS barco, descripcion FROM campanias INNER JOIN barcos ON campanias.idbarcos = barcos.id ORDER BY barco ASC;');
-$camp_listado="";
-if($sql){
-    while($camp = mysqli_fetch_array($sql)){
+$camp_listado = "";
+if ($sql) {
+    while ($camp = mysqli_fetch_array($sql)) {
         $camp_listado .= '
         <tr>
         <td>' . $camp['id'] . '</td>
@@ -29,10 +29,10 @@ if($sql){
 <html>
     <head>
         <title>Edicion de Campañas</title>
-        <?php include('templates/inicial/head.php');?>  
+        <?php include('templates/inicial/head.php'); ?>  
     </head>
     <body>
-    <?php include('templates/online/header.php');?>  
+    <?php include('templates/online/header.php'); ?>  
         <div class="jumbotron jumbotron-sm">
             <div class="container">
                 <div class="row">
@@ -65,13 +65,13 @@ if($sql){
                             </tr>
                         </thead>
                         <tbody>
-                            <?php echo $camp_listado;?>
+                            <?php echo $camp_listado; ?>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        <?php include('templates/inicial/footer.php');?>      
+        <?php include('templates/inicial/footer.php'); ?>      
         <script>
             $('ul li:nth-child(3)').addClass('active');
             $('ul li:nth-child(3) a').addClass('active').append('<span class="sr-only">(current)</span>');

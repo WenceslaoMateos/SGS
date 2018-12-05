@@ -6,25 +6,25 @@ $permiso = 0;
 
 require('templates/coneccion.php');
 
-if(isset($_REQUEST['desde']))
+if (isset($_REQUEST['desde']))
     $filtros_desde = $_REQUEST['desde'];
-if(isset($_REQUEST['hasta']))
+if (isset($_REQUEST['hasta']))
     $filtros_hasta = $_REQUEST['hasta'];
-if(isset($_REQUEST['campania']))
+if (isset($_REQUEST['campania']))
     $filtros_campania = $_REQUEST['campania'];
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <title>Tracking de barcos</title>
-        <?php include('templates/inicial/head.php');?>  
+        <?php include('templates/inicial/head.php'); ?>  
         <link rel="stylesheet" href="./openlayers/css/ol.css" type="text/css">
         <link rel="stylesheet" href="./css/mapa.css">
         <script src="./openlayers/build/ol.js"></script>
         <script src="./polyfill/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
     </head>
     <body>
-        <?php include('templates/online/header.php');?>  
+        <?php include('templates/online/header.php'); ?>  
             <main style="overflow: hidden;">
             <div class="row mr-0" style="height: 27rem;">
                 <aside class="col-lg-4 col-sm-8">
@@ -34,8 +34,8 @@ if(isset($_REQUEST['campania']))
                                 <option value="-1">Seleccione un barco</option>
                                 <?php
                                 $barcos = mysqli_query($db, "SELECT * FROM barcos;");
-                                if(mysqli_num_rows($barcos) > 0){
-                                    while($barco = mysqli_fetch_assoc($barcos)){
+                                if (mysqli_num_rows($barcos) > 0) {
+                                    while ($barco = mysqli_fetch_assoc($barcos)) {
                                         echo '<option value="' . $barco['id'] . '">' . $barco['nombre'] . '</option>';
                                     }
                                 }
@@ -85,13 +85,13 @@ if(isset($_REQUEST['campania']))
                 </div>
             </div>
         </main>
-        <?php include('templates/inicial/footer.php');?>  
+        <?php include('templates/inicial/footer.php'); ?>  
         <script>
             $('ul li:nth-child(1)').addClass('active');
             $('ul li:nth-child(1) a').addClass('active').append('<span class="sr-only">(current)</span>');
-            var desde = '<?php if(!empty($filtros_desde)) echo serialize($filtros_desde);?>';
-            var hasta = '<?php if(!empty($filtros_hasta)) echo serialize($filtros_hasta);?>';
-            var campanias = '<?php if(!empty($filtros_campania)) echo serialize($filtros_campania);?>';
+            var desde = '<?php if (!empty($filtros_desde)) echo serialize($filtros_desde); ?>';
+            var hasta = '<?php if (!empty($filtros_hasta)) echo serialize($filtros_hasta); ?>';
+            var campanias = '<?php if (!empty($filtros_campania)) echo serialize($filtros_campania); ?>';
         </script>
         <script src="./js/mapasHidrografia.js">/*Mapas de hidrografia*/</script>
         <script src="./js/mapasOpenmaps.js">/*Mapas de hidrografia*/</script>

@@ -8,9 +8,9 @@ $permiso = 1000;
 require('templates/coneccion.php');
 
 $sql = mysqli_query($db, 'SELECT * FROM barcos ORDER BY nombre ASC;');
-$barco_listado="";
-if($sql){
-    while($barco = mysqli_fetch_array($sql)){
+$barco_listado = "";
+if ($sql) {
+    while ($barco = mysqli_fetch_array($sql)) {
         $barco_listado .= '
             <tr>
                 <td>' . $barco['id'] . '</td>
@@ -28,10 +28,10 @@ if($sql){
 <html>
     <head>
         <title>Edición de barcos</title>
-        <?php include('templates/inicial/head.php');?>  
+        <?php include('templates/inicial/head.php'); ?>  
     </head>
     <body>
-    <?php include('templates/online/header.php');?>  
+    <?php include('templates/online/header.php'); ?>  
         <div class="jumbotron jumbotron-sm">
             <div class="container">
                 <div class="row">
@@ -62,13 +62,13 @@ if($sql){
                             </tr>
                         </thead>
                         <tbody>
-                            <?php echo $barco_listado;?>
+                            <?php echo $barco_listado; ?>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        <?php include('templates/inicial/footer.php');?>      
+        <?php include('templates/inicial/footer.php'); ?>      
         <script>
             $('ul li:nth-child(3)').addClass('active');
             $('ul li:nth-child(3) a').addClass('active').append('<span class="sr-only">(current)</span>');

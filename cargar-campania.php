@@ -12,10 +12,10 @@ require('templates/coneccion.php');
 <html>
     <head>
         <title>Carga de campañas</title>
-        <?php include('templates/inicial/head.php');?>  
+        <?php include('templates/inicial/head.php'); ?>  
     </head>
 <body>
-    <?php include('templates/online/header.php');?>  
+    <?php include('templates/online/header.php'); ?>  
     <main>
         <div class="jumbotron jumbotron-sm">
             <div class="container">
@@ -35,8 +35,8 @@ require('templates/coneccion.php');
                         <option value="">Seleccione un barco</option>
                         <?php
                         $barcos = mysqli_query($db, "SELECT * FROM barcos;");
-                        if(mysqli_num_rows($barcos) > 0){
-                            while($barco = mysqli_fetch_assoc($barcos)){
+                        if (mysqli_num_rows($barcos) > 0) {
+                            while ($barco = mysqli_fetch_assoc($barcos)) {
                                 echo '<option value="' . $barco['id'] . '">' . $barco['nombre'] . '</option>';
                             }
                         }
@@ -52,7 +52,7 @@ require('templates/coneccion.php');
         </div>
         </div>
     </main>
-    <?php include('templates/inicial/footer.php');?>      
+    <?php include('templates/inicial/footer.php'); ?>      
     <script>
         $('ul li:nth-child(2)').addClass('active');
         $('ul li:nth-child(2) a').addClass('active').append('<span class="sr-only">(current)</span>');

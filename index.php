@@ -3,10 +3,10 @@
     <head>
         <title>Home</title>
         <link href="./css/carousel.css" rel="stylesheet">
-        <?php include('templates/inicial/head.php');?>  
+        <?php include('templates/inicial/head.php'); ?>  
     </head>
     <body>
-        <?php include('templates/inicial/header.php');?>  
+        <?php include('templates/inicial/header.php'); ?>  
         <main class="main ">
 
       <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -104,7 +104,7 @@
       </div><!-- /.container -->
 
         </main>
-        <?php include('templates/inicial/footer.php');?>  
+        <?php include('templates/inicial/footer.php'); ?>  
         <script>
             $('ul li:first').addClass('active');
             $('ul li:first a').addClass('active').append('<span class="sr-only">(current)</span>');

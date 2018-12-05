@@ -3,10 +3,10 @@
     <head>
         <title>Nosotros</title>
         <link href="css/full.css" rel="stylesheet">
-        <?php include('templates/inicial/head.php');?>  
+        <?php include('templates/inicial/head.php'); ?>  
     </head>
     <body>
-        <?php include('templates/inicial/header.php');?>  
+        <?php include('templates/inicial/header.php'); ?>  
         <main>
             <div class="jumbotron jumbotron-sm">
                 <div class="container">
@@ -36,7 +36,7 @@
                 </div>
             </div>
         </main>
-        <?php include('templates/inicial/footer.php');?>  
+        <?php include('templates/inicial/footer.php'); ?>  
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script>
             $('ul li:nth-child(2)').addClass('active');

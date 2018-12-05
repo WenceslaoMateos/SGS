@@ -14,7 +14,7 @@ $usr = mysqli_fetch_assoc($usuario_query);
 
 $confirma = $_REQUEST['confirma'];
 
-if ($confirma == "si"){
+if ($confirma == "si") {
     $nombre = $_REQUEST['nombre'];
     $apellido = $_REQUEST['apellido'];
     $email = $_REQUEST['email'];
@@ -34,10 +34,10 @@ if ($confirma == "si"){
 <html>
     <head>
         <title>Edición de usuario</title>
-        <?php include('templates/inicial/head.php');?>  
+        <?php include('templates/inicial/head.php'); ?>  
     </head>
 <body>
-    <?php include('templates/online/header.php');?>  
+    <?php include('templates/online/header.php'); ?>  
     <main>
         <div class="jumbotron jumbotron-sm">
             <div class="container">
@@ -68,13 +68,13 @@ if ($confirma == "si"){
                     <input type="password" class="form-control" name="contrasenia" placeholder="Contraseña">
 
                     <button class="btn btn-primary ml-5 mt-3" type="submit">Cargar</button>
-                    <input type="hidden" name="id" value="<?php echo $id;?>"/>
+                    <input type="hidden" name="id" value="<?php echo $id; ?>"/>
                     <input type="hidden" name="confirma" value="si"/>
                 </form>
             </div>
         </div>
     </main>
-    <?php include('templates/inicial/footer.php');?>      
+    <?php include('templates/inicial/footer.php'); ?>      
     <script>
         $('ul li:nth-child(3)').addClass('active');
         $('ul li:nth-child(3) a').addClass('active').append('<span class="sr-only">(current)</span>');

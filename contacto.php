@@ -2,10 +2,10 @@
 <html lang="en">
     <head>
         <title>Contacto</title>
-        <?php include('templates/inicial/head.php');?>  
+        <?php include('templates/inicial/head.php'); ?>  
     </head>
     <body>
-        <?php include('templates/inicial/header.php');?> 
+        <?php include('templates/inicial/header.php'); ?> 
         <main>
             <div class="jumbotron jumbotron-sm">
                 <div class="container">
@@ -79,7 +79,7 @@
                 </div>
             </div>
         </main> 
-        <?php include('templates/inicial/footer.php');?>  
+        <?php include('templates/inicial/footer.php'); ?>  
         <script>
             $('ul li:nth-child(4)').addClass('active');
             $('ul li:nth-child(4) a').addClass('active').append('<span class="sr-only">(current)</span>');

@@ -6,24 +6,23 @@ $permiso = 0;
 
 require('templates/coneccion.php');
 
-if(isset($_REQUEST['enviado']) && ($_REQUEST['enviado'] == "si")){
-    exec("grdview ". $_FILES['adjunto']['tmp_name'] ." " .  $_REQUEST["-Wc"] ." -B1a2 -BWSneZ+b+tBatimetrico -JM-57/-38/7i " . $_REQUEST["tipoImagen"] . " -JZ4i -P -p170/20 -Cmagma.cpt > map.ps");
+if (isset($_REQUEST['enviado']) && ($_REQUEST['enviado'] == "si")) {
+    exec("grdview " . $_FILES['adjunto']['tmp_name'] . " " . $_REQUEST["-Wc"] . " -B1a2 -BWSneZ+b+tBatimetrico -JM-57/-38/7i " . $_REQUEST["tipoImagen"] . " -JZ4i -P -p170/20 -Cmagma.cpt > map.ps");
     exec("psconvert -Tf -Z -A4 -E720 map.ps");
-    $filename= "map.pdf";
+    $filename = "map.pdf";
     header("Content-type: application/octet-stream");
     header("Content-disposition: attachment; filename=$filename");
     readfile($filename);
-}
-else
+} else
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <title>Carga de batimetrías</title>
-        <?php include('templates/inicial/head.php');?>  
+        <?php include('templates/inicial/head.php'); ?>  
     </head>
 <body>
-    <?php include('templates/online/header.php');?>  
+    <?php include('templates/online/header.php'); ?>  
     <main>
         <div class="jumbotron jumbotron-sm">
             <div class="container">
@@ -76,7 +75,7 @@ else
             </form>
         </div>
     </main>
-    <?php include('templates/inicial/footer.php');?>      
+    <?php include('templates/inicial/footer.php'); ?>      
     <script>
         $('ul li:nth-child(4)').addClass('active');
         $('ul li:nth-child(4) a').addClass('active').append('<span class="sr-only">(current)</span>');

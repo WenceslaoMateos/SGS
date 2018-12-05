@@ -14,13 +14,13 @@ $x2 = $_REQUEST["x2"];
 $y1 = $_REQUEST["y1"];
 $y2 = $_REQUEST["y2"];
 
-if (isset($_REQUEST['campanias'])){
+if (isset($_REQUEST['campanias'])) {
     $campanias = unserialize($_REQUEST['campanias']);
 }
-if (isset($_REQUEST['desde'])){
+if (isset($_REQUEST['desde'])) {
     $desde = unserialize($_REQUEST['desde']);
 }
-if (isset($_REQUEST['hasta'])){
+if (isset($_REQUEST['hasta'])) {
     $hasta = unserialize($_REQUEST['hasta']);
 }
 
@@ -37,10 +37,10 @@ if (isset($_REQUEST['hasta'])){
 }*/
 
 //CABECERA KML
-$kml = '<?xml version="1.0" encoding="UTF-8"?>'."\n";
-$kml .= '<kml xmlns="http://www.opengis.net/kml/2.2"'."\n";
-$kml .= ' xmlns:gx="http://www.google.com/kml/ext/2.2">'."\n";
-$kml .= '  <Document>'."\n";
+$kml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+$kml .= '<kml xmlns="http://www.opengis.net/kml/2.2"' . "\n";
+$kml .= ' xmlns:gx="http://www.google.com/kml/ext/2.2">' . "\n";
+$kml .= '  <Document>' . "\n";
 //END CABECERA KML
 
 //CUERPO KML
@@ -66,38 +66,38 @@ $sql = "SELECT
         //WHERE MBRwithin(point, $geometria);";
 
 $sql2 = "SELECT DISTINCT idcampania
-        FROM mediciones "; 
-if ((!empty($campanias) && ($campanias != -1)) || isset($desde)){
+        FROM mediciones ";
+if ((!empty($campanias) && ($campanias != -1)) || isset($desde)) {
     $sql .= "WHERE (";
     $sql2 .= "WHERE (";
-    {if ((!empty($campanias) && ($campanias != -1))){
-        foreach($campanias as $clave => $valor){
-            $sql .= "idcampania=$valor OR ";
-            $sql2 .= "idcampania=$valor OR ";
+    {
+        if ((!empty($campanias) && ($campanias != -1))) {
+            foreach ($campanias as $clave => $valor) {
+                $sql .= "idcampania=$valor OR ";
+                $sql2 .= "idcampania=$valor OR ";
+            }
+            $sql = substr($sql, 0, -3);
+            $sql2 = substr($sql2, 0, -3);
+            $sql .= ") AND ";
+            $sql2 .= ") AND ";
         }
-        $sql = substr($sql, 0, -3);
-        $sql2 = substr($sql2, 0, -3);
-        $sql .=") AND ";
-        $sql2 .=") AND ";
-    }}
-    if (isset($desde)){
-        foreach($desde as $clave => $valor){
+    }
+    if (isset($desde)) {
+        foreach ($desde as $clave => $valor) {
             $sql .= " (datetime BETWEEN '$valor' AND '" . $hasta[$clave] . "') OR ";
             $sql2 .= "(datetime BETWEEN '$valor' AND '" . $hasta[$clave] . "') OR ";
         }
         $sql = substr($sql, 0, -3);
         $sql2 = substr($sql2, 0, -3);
-        $sql .=")  ";
-        $sql2 .=")  ";
-    }
-    else if (isset($campanias)){
+        $sql .= ")  ";
+        $sql2 .= ")  ";
+    } else if (isset($campanias)) {
         $sql = substr($sql, 0, -4);
         $sql2 = substr($sql2, 0, -4);
     }
-}
-else{
-    $sql .="  ORDER BY campanias.id, mediciones.id ASC;";
-    $sql2 .=" ORDER BY idcampania ASC;";
+} else {
+    $sql .= "  ORDER BY campanias.id, mediciones.id ASC;";
+    $sql2 .= " ORDER BY idcampania ASC;";
 }
 
 //$kml = $sql . "\n" . $sql2;
@@ -107,74 +107,73 @@ $result = mysqli_query($db, $sql);
 $query_camp = mysqli_query($db, $sql2);
 
 
-if (mysqli_num_rows($query_camp) > 0){
-    while($camp = mysqli_fetch_assoc($query_camp)){
+if (mysqli_num_rows($query_camp) > 0) {
+    while ($camp = mysqli_fetch_assoc($query_camp)) {
 
 
         //Cada Placemark es un conjunto de varias mediciones.
         $cantMed = 100;
         $j = 0;
         $i = 0;
-        $kml .= '      <Placemark>'."\n";
-        $kml .= '          <LineString>'."\n";
-        $kml .= '              <coordinates>'."\n";
-        while(($row = mysqli_fetch_assoc($result)) && ($row['campaniaid'] == $camp['idcampania'])){
+        $kml .= '      <Placemark>' . "\n";
+        $kml .= '          <LineString>' . "\n";
+        $kml .= '              <coordinates>' . "\n";
+        while (($row = mysqli_fetch_assoc($result)) && ($row['campaniaid'] == $camp['idcampania'])) {
             $i++;
-            if($j < $cantMed){
-                $kml .= '              ' . $row["Longitud"]. ',' . $row["Latitud"] . "\n";
+            if ($j < $cantMed) {
+                $kml .= '              ' . $row["Longitud"] . ',' . $row["Latitud"] . "\n";
                 $j++;
-            }
-            else{
+            } else {
                 $j = 0;
-                $kml .= '              </coordinates>'."\n";
-                $kml .= '          </LineString>'."\n";
-                $kml .= '          <ExtendedData>'."\n";
+                $kml .= '              </coordinates>' . "\n";
+                $kml .= '          </LineString>' . "\n";
+                $kml .= '          <ExtendedData>' . "\n";
                 //$newTime = $row["time"];
                 //cada elemento fetcheado se pone en el dato correspondiente
-                $kml .= '              <Data name="type">'."\n";
-                $kml .= '                  <value>line</value>'."\n";
-                $kml .= '              </Data>'."\n";
-                foreach($row as $clave => $elemento){
-                    $kml .= '              <Data name="' . $clave . '">'."\n";
-                    $kml .= '                  <value>' . $elemento . '</value>'."\n";
-                    $kml .= '              </Data>'."\n";
+                $kml .= '              <Data name="type">' . "\n";
+                $kml .= '                  <value>line</value>' . "\n";
+                $kml .= '              </Data>' . "\n";
+                foreach ($row as $clave => $elemento) {
+                    $kml .= '              <Data name="' . $clave . '">' . "\n";
+                    $kml .= '                  <value>' . $elemento . '</value>' . "\n";
+                    $kml .= '              </Data>' . "\n";
                 }
-                $kml .= '          </ExtendedData>'."\n";
-                $kml .= '      </Placemark>'."\n";
-                $kml .= '      <Placemark>'."\n";
-                $kml .= '          <LineString>'."\n";
-                $kml .= '              <coordinates>'."\n";
-                $kml .= '              ' . $row["Longitud"]. ',' . $row["Latitud"] . "\n";
+                $kml .= '          </ExtendedData>' . "\n";
+                $kml .= '      </Placemark>' . "\n";
+                $kml .= '      <Placemark>' . "\n";
+                $kml .= '          <LineString>' . "\n";
+                $kml .= '              <coordinates>' . "\n";
+                $kml .= '              ' . $row["Longitud"] . ',' . $row["Latitud"] . "\n";
                 /*
                 //se guarda el ultimo elemento asi al siguiente se le puede agregar al principio
                 $lastTime = $last["time"];
                 if (diferenciaTime($newTime,$lastTime))
                     $kml .= '              ' . $last["longitud"]. ',' . $last["latitud"] . "\n";
-                */
+                 */
             }
             $last = $row;
         }
-        if ($j != 0 || $row['campaniaid']!=$camp['idcampania']){
-            $kml .= '              </coordinates>'."\n";
-            $kml .= '          </LineString>'."\n";
-            $kml .= '          <ExtendedData>'."\n";
-            $kml .= '              <Data name="type">'."\n";
-            $kml .= '                  <value>line</value>'."\n";
-            $kml .= '              </Data>'."\n";
-            foreach($last as $clave => $elemento){
-                $kml .= '              <Data name="' . $clave . '">'."\n";
-                $kml .= '                  <value>' . $elemento . '</value>'."\n";
-                $kml .= '              </Data>'."\n";
+        if ($j != 0 || $row['campaniaid'] != $camp['idcampania']) {
+            $kml .= '              </coordinates>' . "\n";
+            $kml .= '          </LineString>' . "\n";
+            $kml .= '          <ExtendedData>' . "\n";
+            $kml .= '              <Data name="type">' . "\n";
+            $kml .= '                  <value>line</value>' . "\n";
+            $kml .= '              </Data>' . "\n";
+            foreach ($last as $clave => $elemento) {
+                $kml .= '              <Data name="' . $clave . '">' . "\n";
+                $kml .= '                  <value>' . $elemento . '</value>' . "\n";
+                $kml .= '              </Data>' . "\n";
             }
-            $kml .= '          </ExtendedData>'."\n";
-            $kml .= '      </Placemark>'."\n";
+            $kml .= '          </ExtendedData>' . "\n";
+            $kml .= '      </Placemark>' . "\n";
         }
     }
 }
 
-$kml .= ' </Document>'."\n";
+$kml .= ' </Document>' . "\n";
 
-$kml .= '</kml>'."\n";
+$kml .= '</kml>' . "\n";
 //END CUERPO KML
 
 
@@ -291,7 +290,7 @@ $kml .= ' </Document>'."\n";
 $kml .= '</kml>'."\n";
 //END CUERPO KML
 
-*/
+ */
 
 //cierre de la conección a la base de datos
 //$conn->close();
