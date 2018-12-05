@@ -231,8 +231,8 @@ for ($k = 0; $k < $m; $k++) {
                 }
                 
                 //Inserta el punto en la base de datos.
-                $sql = "INSERT INTO mediciones (id, datetime, longitud, latitud, punto , idcampania) 
-                        VALUES ($j,'$time', $longitud, $latitud, $point , $campania);";
+                $sql = "INSERT INTO mediciones (datetime, longitud, latitud, punto , idcampania) 
+                        VALUES ('$time', $longitud, $latitud, $point , $campania);";
                 $conn->query($sql);
 
                 $j++;
