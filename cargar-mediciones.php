@@ -74,7 +74,7 @@ require('templates/coneccion.php');
                 if (barco){
                     $.ajax({
                         type:'POST',
-                        url:'/Servidor/Barcos/ProtoMap/ajaxData.php',
+                        url:'./ajaxData.php',
                         data:{
                             barco: barco
                         },

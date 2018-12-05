@@ -197,7 +197,7 @@ $(document).ready(function(){
       if (barco){
           $.ajax({
               type:'POST',
-              url:'/Servidor/Barcos/ProtoMap/ajaxData.php',
+              url:'./ajaxData.php',
               data:{
                   barco: barco
               },
