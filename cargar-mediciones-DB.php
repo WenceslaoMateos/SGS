@@ -151,7 +151,7 @@ function date2when($fecha, $hora)
 $servername = "localhost";
 $username = "wence";
 $password = "wence";
-$dbname = "SGS";
+$dbname = "sgs";
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
