@@ -37,7 +37,7 @@
             </div>
         </main>
         <?php include('templates/inicial/footer.php'); ?>  
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="./bootstrap/js/bootstrap.bundle.min.js"></script>
         <script>
             $('ul li:nth-child(2)').addClass('active');
             $('ul li:nth-child(2) a').addClass('active').append('<span class="sr-only">(current)</span>');
