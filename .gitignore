@@ -13,15 +13,15 @@
 *.vrt
 *.bsb
 *.kap
-bootstrap
-openlayers
 images
-Mapas
+mapas
 temp
-GMT Docs
 datos
 dashboard/
 
 applications\.html
 
 bitnami\.css
+
+openlayers/
+img/
