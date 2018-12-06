@@ -1,5 +1,13 @@
 <?php
 
+/******************** FUNCIONES ÚTILES ********************/
+/**
+ * La función constanSet se encarga de generar un array asociativo con los nombres de cada uno de los 
+ * datos sensados y su ubicación en el array "$datos".
+ *
+ * @param array $datos Array que contiene los tipos de dato de todo un archivo
+ * @return array Array asociativo que está compuesto por el primer valor de la tabla de sensores
+ */
 function constantSet($datos)
 {
     $ret = array();
@@ -11,14 +19,22 @@ function constantSet($datos)
     return $ret;
 }
 
+/**
+ * Undocumented function
+ *
+ * @param [type] $archivos
+ * @return void
+ */
 function parsingTDatos($archivos)
 {
     $ret = array();
     $m = count($archivos);
+    //voy archivo por archivo
     for ($j = 0; $j < $m; $j++) {
         $archivo = $archivos[$j];
         $array = file($archivo);
         $n = count($array);
+        //$ret es un vector de archivos
         $ret[$j] = array(
             "dispositivo" => array(),
             "sensor" => array(),
@@ -30,8 +46,11 @@ function parsingTDatos($archivos)
             "valores" => array()
         );
         $i = 0;
+        //voy linea por linea de un archivo en especifico
         while ($i < $n) {
+            //comparo si estoy hablando de un canal
             if (substr($array[$i], 0, 8) == 'Channel ') {
+                //una vez que estoy en un canal, ya se que estoy hablando de un tipo de medición
                 $i++;
                 $ret[$j]["dispositivo"][] = trim(str_replace("\"", "", substr($array[$i], 16, 50)));
                 $i++;
@@ -55,7 +74,6 @@ function parsingTDatos($archivos)
     return $ret;
 }
 
-//FUNCIONES UTILES
 /**
  * La función se encarga de obtener una coordenada en el formato de "G M O" donde:
  * G es grados.
@@ -84,7 +102,7 @@ function GPS2degree($coordenada)
 
 /**
  * Valida que el numero sea valido, considerando que un numero invalido contiene solamente el numero 9.
- *
+ * TODO hay que refactorizar esto para que sea mas dinamico
  * @param float/integer $dato Dato a verificar.
  * @param integer $length Tamaño del numero a verificar (incluyendo decimales y el punto que indica decimal).
  * @param integer $precision Cantidad de decimales que el numero posee.
@@ -184,7 +202,6 @@ for ($k = 0; $k < $m; $k++) {
         //------------------------------------------------------------
 
         //LECTURA DE DATOS A CARGAR Y CARGA DE DATOS EN LA BASE DE DATOS.
-
         $claves = constantSet($tDatos[$k]);
         $lineas = file($name);
         $n = count($lineas);
