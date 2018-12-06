@@ -60,7 +60,6 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <form method="post">
                         <legend><span class="glyphicon glyphicon-globe"></span> Nuestra oficina</legend>
                         <address>
                             <strong>GTI, UNMDP</strong><br>
@@ -74,8 +73,7 @@
                             <strong>Wenceslao Mateos</strong><br>
                             <a href="mailto:#">wenceslaomateos@gmail.com</a>
                         </address>
-                        </form>
-                    </div>
+                        </div>
                 </div>
             </div>
         </main> 
