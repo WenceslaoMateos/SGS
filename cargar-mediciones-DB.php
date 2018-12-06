@@ -5,7 +5,8 @@ function constantSet($datos)
     $ret = array();
     $n = count($datos["sensor"]);
     for ($i = 0; $i < $n; $i++) {
-        $ret[$datos["sensor"][$i]] = $i + 2;
+        if (!isset($ret[$datos["sensor"][$i]]))
+            $ret[$datos["sensor"][$i]] = $i + 2;
     }
     return $ret;
 }
