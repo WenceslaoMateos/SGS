@@ -260,12 +260,12 @@ for ($k = 0; $k < $m; $k++) {
                             $otros .= '\'tipo\': ';
                             $otros .= '\'' . $tDatos[$k]['valores'][$l] . '\',';
                         }
-                        $otros = substr($otros, 0, strlen($otros) - 2);
+                        $otros = substr($otros, 0, strlen($otros) - 1);
                         $otros .= '},';
                     }
                 }
                 //echo $otros . "<br>";
-                $otros = substr($otros, 0, strlen($otros) - 2);
+                $otros = substr($otros, 0, strlen($otros) - 1);
                 $otros .= '}';
                 
                 //Inserta el punto en la base de datos.
