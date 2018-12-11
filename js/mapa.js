@@ -12,10 +12,10 @@ var closer = document.getElementById('popup-closer');
 /**
   *Funcion que le da un estilo al vector correspondiente a los barcos.
   */
-var styleFunction = function(feature) {
+var styleFunction = function (feature) {
   var propiedades = feature.getProperties();
   var rotation = (propiedades['angulo'] * Math.PI) / 180;
-  if (propiedades['type']==='point' && propiedades['angulo']!= ""){
+  if (propiedades['type'] === 'point' && propiedades['angulo'] != "") {
     style = new ol.style.Style({
       image: new ol.style.Icon({
         src: './images/arrow.png',
@@ -26,7 +26,7 @@ var styleFunction = function(feature) {
       })
     });
   }
-  else{
+  else {
     style = new ol.style.Style({
       stroke: new ol.style.Stroke({
         color: '#777777',
@@ -34,8 +34,8 @@ var styleFunction = function(feature) {
       })
     })
   }
-return [style]
-};  
+  return [style]
+};
 
 /**
   *1-Hacer un mapa
@@ -46,7 +46,7 @@ return [style]
 var overlay = new ol.Overlay({
   element: container,
   autoPan: true,
-  autoPanAnimation: {duration: 250}
+  autoPanAnimation: { duration: 250 }
 });
 
 /**
@@ -59,7 +59,7 @@ var map = new ol.Map({
   overlays: [overlay],
   view: new ol.View({
     maxZoom: 18,
-    center: ol.proj.transform([8.5550875,53.566916333333], 'EPSG:4326', 'EPSG:3857'),
+    center: ol.proj.transform([8.5550875, 53.566916333333], 'EPSG:4326', 'EPSG:3857'),
     zoom: 2
   })
 });
@@ -67,15 +67,15 @@ var map = new ol.Map({
 /**
   *Extrae las coordenadas del "field of view" y las retorna en un array.
   */
-function cuadro(){
+function cuadro() {
   var extent = map.getView().calculateExtent(map.getSize());
-  var bottomLeft = ol.proj.transform(ol.extent.getBottomLeft(extent),'EPSG:3857', 'EPSG:4326');
-  var topRight = ol.proj.transform(ol.extent.getTopRight(extent),'EPSG:3857', 'EPSG:4326');
+  var bottomLeft = ol.proj.transform(ol.extent.getBottomLeft(extent), 'EPSG:3857', 'EPSG:4326');
+  var topRight = ol.proj.transform(ol.extent.getTopRight(extent), 'EPSG:3857', 'EPSG:4326');
   var arr = {
-    'x1':bottomLeft[0],
-    'x2':topRight[0],
-    'y2':topRight[1],
-    'y1':bottomLeft[1]
+    'x1': bottomLeft[0],
+    'x2': topRight[0],
+    'y2': topRight[1],
+    'y1': bottomLeft[1]
   };
   return arr;
 }
@@ -84,18 +84,18 @@ function cuadro(){
   *Cada vez que es llamada busca el "field of view" y vuelve a buscar el source del vector con los 
   *los datos de el/los barcos para que lo vuelva a plotear.
   */
-function changeVector(){
+function changeVector() {
   var cuadrado = cuadro();
   var link = "x1=" + cuadrado['x1'] + '&x2=' + cuadrado['x2'] + '&y2=' + cuadrado['y2'] + '&y1=' + cuadrado['y1'];
   if (campanias != '')
-    link += '&campanias='+campanias;
+    link += '&campanias=' + campanias;
   if (desde != '')
-    link += '&desde='+desde;
+    link += '&desde=' + desde;
   if (hasta != '')
-    link += '&hasta='+hasta;
+    link += '&hasta=' + hasta;
   vector.setSource(new ol.source.Vector({
     url: "buscaDatosDB.php?" + link,
-    format: new ol.format.KML({extractStyles: false})
+    format: new ol.format.KML({ extractStyles: false })
   }));
   vector.setStyle(styleFunction);
 };
@@ -108,20 +108,20 @@ changeVector();
 /**
   *Funcion que al hacer click en el closer se cierra en degrade.
   */
-closer.onclick = function(){
-//  overlay.setPosition(undefined);
+closer.onclick = function () {
+  //  overlay.setPosition(undefined);
   $("#popup").fadeOut();
-//  closer.blur();
+  //  closer.blur();
   return false;
 }
 
 /**
   *Funcion que al seleccionar "that" busca los atributos del "that" y los escribe dentro del popup.
   */
-function hacerCuandoSeleccione(that){
-  if (that.selected.length >= 1){
+function hacerCuandoSeleccione(that) {
+  if (that.selected.length >= 1) {
     var geometria = that.selected[0].getGeometry();
-    var posicion = geometria.getFirstCoordinate();  
+    var posicion = geometria.getFirstCoordinate();
     var propiedades = that.selected[0].getProperties()
     $("#popup").fadeIn();
     overlay.setPosition(posicion);
@@ -132,80 +132,80 @@ function hacerCuandoSeleccione(that){
     claves = claves.filter(item => item != "campaniaid");
     claves = claves.filter(item => item != "type");
     claves = claves.filter(item => item != "styleUrl");
-    claves.forEach(function(clave){
-      if (propiedades[clave] != ""){
+    claves.forEach(function (clave) {
+      if (propiedades[clave] != "") {
         content.innerHTML += clave + ": " + propiedades[clave] + "<br>";
       }
     });
   }
 }
-  
+
 //Al seleccionar un elemento este debe desplegar el popup
-var select = new ol.interaction.Select({condition: ol.events.condition.click});
+var select = new ol.interaction.Select({ condition: ol.events.condition.click });
 map.addInteraction(select);
 select.on('select', hacerCuandoSeleccione, this);
 
-$(document).ready(function(){
+$(document).ready(function () {
   var i = 0;
-  $("#agregar_fecha").on('click', function(){
+  $("#agregar_fecha").on('click', function () {
     i++;
-    var aux=i;
+    var aux = i;
     var date = new Date($("#desde").val());
-    var desde = " " + date.getDate() + "/"+ (date.getMonth()+1) + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
+    var desde = " " + date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
     date = new Date($("#hasta").val());
-    var hasta = " " + date.getDate() + "/"+ (date.getMonth()+1) + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
-    $("#filtros_a_aplicar_body").append('<tr id="row_'+ i +'"><td><input type="hidden" name="desde[]" value="' + $("#desde").val() + '">Desde: ' + desde + '</td><td><input type="hidden" name="hasta[]" value="' + $("#hasta").val() + '">Hasta: ' + hasta + '</td><td id="button_'+ aux +'" class="btn btn-danger">Eliminar</td></tr>');
+    var hasta = " " + date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
+    $("#filtros_a_aplicar_body").append('<tr id="row_' + i + '"><td><input type="hidden" name="desde[]" value="' + $("#desde").val() + '">Desde: ' + desde + '</td><td><input type="hidden" name="hasta[]" value="' + $("#hasta").val() + '">Hasta: ' + hasta + '</td><td id="button_' + aux + '" class="btn btn-danger">Eliminar</td></tr>');
     $("#filtros_a_aplicar_body").removeClass("d-none");
     $("#filtros_a_aplicar").removeClass("d-none");
     $("#aplicar").removeClass("d-none");
-    $("#button_" + aux).on('click',function() {
-      $("#row_" + aux ).remove();
-      if ($("#filtros_a_aplicar_body").children().length == 0){
+    $("#button_" + aux).on('click', function () {
+      $("#row_" + aux).remove();
+      if ($("#filtros_a_aplicar_body").children().length == 0) {
         $("#filtros_a_aplicar").addClass("d-none");
         $("#aplicar").addClass("d-none");
       }
     });
   });
-  $("#campania_invalida").on('click',function(){
+  $("#campania_invalida").on('click', function () {
     $("#campania_invalida").fadeOut();
   })
-  $("#agregar_camp").on('click', function(){
-    if ($("#campania").val() != -1){
+  $("#agregar_camp").on('click', function () {
+    if ($("#campania").val() != -1) {
       $("#campania_invalida").fadeOut();
       i++;
-      var aux=i;
-      $("#filtros_a_aplicar_body").prepend('<tr id="row_'+ i +'"><td><input type="hidden" name="campania[]" value="' + $("#campania option:selected").val() + '">' + $("#barco option:selected").text() + '</td><td>' + $("#campania option:selected").text() + '</td><td id="button_'+ aux +'" class="btn btn-danger">Eliminar</td></tr>');
+      var aux = i;
+      $("#filtros_a_aplicar_body").prepend('<tr id="row_' + i + '"><td><input type="hidden" name="campania[]" value="' + $("#campania option:selected").val() + '">' + $("#barco option:selected").text() + '</td><td>' + $("#campania option:selected").text() + '</td><td id="button_' + aux + '" class="btn btn-danger">Eliminar</td></tr>');
       $("#filtros_a_aplicar_head").removeClass("d-none");
       $("#filtros_a_aplicar_body").removeClass("d-none");
       $("#filtros_a_aplicar").removeClass("d-none");
       $("#aplicar").removeClass("d-none");
-      $("#button_" + aux).on('click',function() {
-        $("#row_" + aux ).remove();
-        if ($("#filtros_a_aplicar_body").children().length == 0){
+      $("#button_" + aux).on('click', function () {
+        $("#row_" + aux).remove();
+        if ($("#filtros_a_aplicar_body").children().length == 0) {
           $("#filtros_a_aplicar").addClass("d-none");
           $("#aplicar").addClass("d-none");
         }
       });
     }
-    else{
+    else {
       $("#campania_invalida").fadeIn();
     }
   });
-  $("#aplicar").on('click',changeVector);
-  $('#barco').on('change',function(){
-      var barco = $(this).val();
-      if (barco){
-          $.ajax({
-              type:'POST',
-              url:'./ajaxData.php',
-              data:{
-                  barco: barco
-              },
-              success:function(html){
-                  $('#campania').html(html); 
-              }
-          }); 
-      }
+  $("#aplicar").on('click', changeVector);
+  $('#barco').on('change', function () {
+    var barco = $(this).val();
+    if (barco) {
+      $.ajax({
+        type: 'POST',
+        url: './ajaxData.php',
+        data: {
+          barco: barco
+        },
+        success: function (html) {
+          $('#campania').html(html);
+        }
+      });
+    }
   });
 });
 
