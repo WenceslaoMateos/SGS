@@ -24,17 +24,18 @@ if (isset($_REQUEST['hasta'])) {
     $hasta = unserialize($_REQUEST['hasta']);
 }
 
-/*function diferenciaTime($one, $two){
-    $one = explode(' ',$one);
+function diferenciaTime($one, $two)
+{
+    $one = explode(' ', $one);
     $one = $one[1];
-    $one = str_replace(':','',$one);
+    $one = str_replace(':', '', $one);
     $one = (int)$one;
-    $two = explode(' ',$two);
+    $two = explode(' ', $two);
     $two = $two[1];
-    $two = str_replace(':','',$two);
+    $two = str_replace(':', '', $two);
     $two = (int)$two;
-    return ($one-$two)==100;
-}*/
+    return ($one - $two) == 100;
+}
 
 //CABECERA KML
 $kml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
