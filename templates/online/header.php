@@ -3,10 +3,10 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="etiquetas container">
             <img src="images/logo2.png" alt="Error de carga de imagen" class="logo">
-            <a class="navbar-brand" href="#">Sistema de gestión de sensores</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <a class="navbar-brand" href="#">Sistema de gestión de sensores</a>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
