@@ -18,19 +18,19 @@ if (isset($_REQUEST['campania']))
     <head>
         <title>Tracking de barcos</title>
         <?php include('templates/inicial/head.php'); ?>  
-        <link rel="stylesheet" href="./openlayers/css/ol.css" type="text/css">
+        <link rel="stylesheet" href="./openlayers/ol.css" type="text/css">
         <link rel="stylesheet" href="./css/mapa.css">
-        <script src="./openlayers/build/ol.js"></script>
+        <script src="./openlayers/ol.js"></script>
         <script src="./polyfill/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
     </head>
     <body>
         <?php include('templates/online/header.php'); ?>  
-            <main style="overflow: hidden;">
-            <div class="row mr-0" style="height: 27rem;">
-                <aside class="col-lg-4 col-sm-8">
-                    <form method="post" name="filtro" enctype="multipart/form-data" class=" mt-5">
+            <main class="container-fluid">
+            <div class="row mr-0">
+                <aside class="col-lg-4 col-md-4 col-sm-5">
+                    <form method="post" name="filtro" enctype="multipart/form-data" class="mt-5">
                         <div class="mb-3 form-group">
-                            <select class="form-control form-control-sm" name="barco" id="barco">
+                            <select class="form-control" name="barco" id="barco">
                                 <option value="-1">Seleccione un barco</option>
                                 <?php
                                 $barcos = mysqli_query($db, "SELECT * FROM barcos;");
@@ -43,7 +43,7 @@ if (isset($_REQUEST['campania']))
                             </select>
                         </div>
                         <div class="form-group">
-                            <select class="form-control form-control-sm" name="campania" id="campania">
+                            <select class="form-control" name="campania" id="campania">
                                 <option value="-1">Seleccione una campaña</option>
                             </select>
                         </div>
@@ -78,7 +78,9 @@ if (isset($_REQUEST['campania']))
                         <button type="submit" class="btn btn-primary ml-5 d-none" name="aplicar" value="aplicar" id="aplicar">Aplicar filtros</button>
                     </form>            
                 </aside>
-                <div id="map" class="map col-lg-8 col-sm-8"></div>
+                <div class="container col-lg-8 col-md-8 col-sm-7">
+                    <div id="map" class="map"></div>
+                </div>
                 <div id="popup" class="ol-popup bg-secondary" style="display: none;">
                     <a href="#" id="popup-closer" class="ol-popup-closer"></a>
                     <div id="popup-content" class="text-white"></div>
@@ -94,7 +96,7 @@ if (isset($_REQUEST['campania']))
             var campanias = '<?php if (!empty($filtros_campania)) echo serialize($filtros_campania); ?>';
         </script>
         <script src="./js/mapasHidrografia.js">/*Mapas de hidrografia*/</script>
-        <script src="./js/mapasOpenmaps.js">/*Mapas de hidrografia*/</script>
+        <script src="./js/mapasOpenmaps.js">/*Mapas de openmaps*/</script>
         <script src="./js/mapa.js"></script>
     </body>
 </html>
