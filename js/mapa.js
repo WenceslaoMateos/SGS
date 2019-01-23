@@ -56,10 +56,11 @@ var overlay = new ol.Overlay({
 var map = new ol.Map({
   layers: [openStreetMap, openSeaMapLayer, hidroAnt, hidroArg, hidroUru, hidroNamuncura, hidroBsAs, hidroSta, hidroStaSur, hidroTDF, hidroStaChu, hidroCaleta, hidroBahiaUs, vector],
   target: 'map',
+  loadTilesWhileAnimating: true,
   overlays: [overlay],
   view: new ol.View({
     maxZoom: 18,
-    center: ol.proj.transform([8.5550875, 53.566916333333], 'EPSG:4326', 'EPSG:3857'),
+    center: [-6409852, -4571211],
     zoom: 2
   })
 });
