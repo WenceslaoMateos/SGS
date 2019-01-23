@@ -2,7 +2,7 @@
 
 /******************** FUNCIONES ÚTILES ********************/
 /**
- * La función constanSet se encarga de generar un array asociativo con los nombres de cada uno de los 
+ * La función constantSet se encarga de generar un array asociativo con los nombres de cada uno de los 
  * datos sensados y su ubicación en el array "$datos".
  *
  * @param array $datos Array que contiene los tipos de dato de todo un archivo
@@ -264,13 +264,13 @@ for ($k = 0; $k < $m; $k++) {
                         $otros .= '},';
                     }
                 }
-                //echo $otros . "<br>";
                 $otros = substr($otros, 0, strlen($otros) - 1);
                 $otros .= '}';
                 
                 //Inserta el punto en la base de datos.
                 $sql = "INSERT INTO mediciones (datetime, longitud, latitud, punto , idcampania, otros) 
                         VALUES ('$time', $longitud, $latitud, $point , $campania, \"$otros\");";
+                //echo $sql . "<br>";
                 $conn->query($sql);
                 //echo $sql;
                 $j++;
