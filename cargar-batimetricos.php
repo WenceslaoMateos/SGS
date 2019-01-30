@@ -68,7 +68,12 @@ if (isset($_REQUEST['enviado']) && ($_REQUEST['enviado'] == "si")) {
                 <div class="form-group">
                     <label for="exampleInputFile">Adjuntar</label>
                     <input name="adjunto" type="file" class="form-control-file" id="adjunto" accept=".tmp" aria-describedby="fileHelp">
-                    <small id="fileHelp" class="form-text text-muted">Datos adicionales de informacion para las batimetrias</small>
+                    <small id="fileHelp" class=" form-text text-muted ">poner datos adicionales de informacion para las batimetrias</small>
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Posición</label>
+                    <input name="nombre" type="text" class="form-control-file" id="nombre" accept=".tmp" aria-describedby="fileHelp">
+                    <small id="fileHelp" class="form-text text-muted">Coordenadas planas de la batimetria en formato " W, S, E, N "</small>
                 </div>
                 <button type="submit" class="btn btn-primary" name="enviar" value="enviar">Enviar</button>
                 <input type="hidden" name="enviado" value="si"/>
