@@ -146,6 +146,34 @@ var select = new ol.interaction.Select({ condition: ol.events.condition.click })
 map.addInteraction(select);
 select.on('select', hacerCuandoSeleccione, this);
 
+function poligono() {
+  var poligono = new ol.geom.Polygon([[
+    [-6409852, -4571211], [-6409852, -4600000],
+    [-6000000, -4600000], [-6000000, -4571211], [-6409852, -4571211]
+  ]]);
+  var poligonoFeature = new ol.Feature(poligono);
+  var vectorSourcePoligono = new ol.source.Vector({
+    projection: 'EPSG:4326'
+  });
+  vectorSourcePoligono.addFeature(poligonoFeature);
+  var vectorLayerPoligono = new ol.layer.Vector({
+    source: vectorSourcePoligono,
+    style: [
+      new ol.style.Style({
+        stroke: new ol.style.Stroke({
+          color: 'black',
+          width: 1
+        }),
+        fill: new ol.style.Fill({
+          color: 'rgba(0, 0, 255, 0.5)'
+        })
+      })
+    ]
+  });
+  map.addLayer(vectorLayerPoligono);
+}
+poligono();
+
 $(document).ready(function () {
   var i = 0;
   $("#agregar_fecha").on('click', function () {
