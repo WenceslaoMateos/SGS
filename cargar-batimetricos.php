@@ -7,12 +7,24 @@ $permiso = 0;
 require('templates/coneccion.php');
 
 if (isset($_REQUEST['enviado']) && ($_REQUEST['enviado'] == "si")) {
-    exec("grdview " . $_FILES['adjunto']['tmp_name'] . " " . $_REQUEST["-Wc"] . " -B1a2 -BWSneZ+b+tBatimetrico -JM-57/-38/7i " . $_REQUEST["tipoImagen"] . " -JZ4i -P -p170/20 -Cmagma.cpt > map.ps");
-    exec("psconvert -Tf -Z -A4 -E720 map.ps");
-    $filename = "map.pdf";
+    $original = $_REQUEST['nombre'];
+    $coordinates = explode(',', $original);
+    $filename = str_replace('-','m',$original);
+    // /*
+    exec("gmt grdview " . $_FILES['adjunto']['tmp_name'] . " " . $_REQUEST["-Wc"] . " -B1a2 -BWSneZ+b+tBatimetrico -JM-57/-38/7i " . $_REQUEST["tipoImagen"] . " -JZ4i -P -p170/20 -Cmagma.cpt > $filename.ps");
+    exec("gmt psconvert -Tf -Z -A4 -E720 $filename.ps");
+    exec("mv $filename.pdf batimetrias/");
+    echo "mv $filename.pdf batimetrias/";
+/*    exec("rm $filename.ps");
+    exec("rm gmt.history");
+    $sql = mysqli_query($db, "  INSERT INTO batimetrias (W, S, E, N, path) 
+                                VALUES (" . $coordinates[0] . ",
+                                    " . $coordinates[1] . ", 
+                                    " . $coordinates[2] . ", 
+                                    " . $coordinates[3] . ", '$filename');");
     header("Content-type: application/octet-stream");
-    header("Content-disposition: attachment; filename=$filename");
-    readfile($filename);
+    header("Content-disposition: attachment; filename=$filename.pdf");
+    readfile("$filename.pdf");*/
 } else
 ?>
 <!DOCTYPE html>
