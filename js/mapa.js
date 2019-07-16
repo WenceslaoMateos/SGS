@@ -133,7 +133,7 @@ function hacerCuandoSeleccione(that) {
     claves = claves.filter(item => item != "campaniaid");
     claves = claves.filter(item => item != "type");
     claves = claves.filter(item => item != "styleUrl");
-    claves.forEach(function (clave) {
+    claves.forEach((clave) => {
       if (propiedades[clave] != "") {
         content.innerHTML += clave + ": " + propiedades[clave] + "<br>";
       }
@@ -146,33 +146,40 @@ var select = new ol.interaction.Select({ condition: ol.events.condition.click })
 map.addInteraction(select);
 select.on('select', hacerCuandoSeleccione, this);
 
-function poligono() {
-  var poligono = new ol.geom.Polygon([[
-    [-6409852, -4571211], [-6409852, -4600000],
-    [-6000000, -4600000], [-6000000, -4571211], [-6409852, -4571211]
-  ]]);
-  var poligonoFeature = new ol.Feature(poligono);
-  var vectorSourcePoligono = new ol.source.Vector({
-    projection: 'EPSG:4326'
-  });
-  vectorSourcePoligono.addFeature(poligonoFeature);
-  var vectorLayerPoligono = new ol.layer.Vector({
-    source: vectorSourcePoligono,
-    style: [
-      new ol.style.Style({
-        stroke: new ol.style.Stroke({
-          color: 'black',
-          width: 1
-        }),
-        fill: new ol.style.Fill({
-          color: 'rgba(0, 0, 255, 0.5)'
+//genera una serie de poligonos acordes a las batimetrias guardadas en la base de datos
+//ojo que con toda la ruta del path se puede llegar a editar y descargar todos los datos del servidor
+function poligono(elementos) {
+  elementos.forEach((elem) => {
+    console.log();
+    var poligono = new ol.geom.Polygon([[
+      ol.proj.transform([elem['W'], elem['N']], 'EPSG:4326', 'EPSG:3857'),
+      ol.proj.transform([elem['E'], elem['N']], 'EPSG:4326', 'EPSG:3857'),
+      ol.proj.transform([elem['E'], elem['S']], 'EPSG:4326', 'EPSG:3857'),
+      ol.proj.transform([elem['W'], elem['S']], 'EPSG:4326', 'EPSG:3857'),
+      ol.proj.transform([elem['W'], elem['N']], 'EPSG:4326', 'EPSG:3857')
+    ]]);
+    var poligonoFeature = new ol.Feature(poligono);
+    var vectorSourcePoligono = new ol.source.Vector({
+      projection: 'EPSG:3857'
+    });
+    vectorSourcePoligono.addFeature(poligonoFeature);
+    var vectorLayerPoligono = new ol.layer.Vector({
+      source: vectorSourcePoligono,
+      style: [
+        new ol.style.Style({
+          stroke: new ol.style.Stroke({
+            color: 'black',
+            width: 1
+          }),
+          fill: new ol.style.Fill({
+            color: 'rgba(0, 0, 255, 0.5)'
+          })
         })
-      })
-    ]
-  });
-  map.addLayer(vectorLayerPoligono);
+      ]
+    });
+    map.addLayer(vectorLayerPoligono);
+  })
 }
-poligono();
 
 $(document).ready(function () {
   var i = 0;
@@ -234,6 +241,15 @@ $(document).ready(function () {
           $('#campania').html(html);
         }
       });
+    }
+  });
+  $.ajax({
+    type: "POST",
+    url: 'mapa-buscar-batimetricos.php',
+    dataType: 'json',
+
+    success: (obj, textstatus) => {
+      poligono(obj);
     }
   });
 });
