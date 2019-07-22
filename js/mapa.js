@@ -124,6 +124,7 @@ function hacerCuandoSeleccione(that) {
     var geometria = that.selected[0].getGeometry();
     var posicion = geometria.getFirstCoordinate();
     var propiedades = that.selected[0].getProperties()
+    var aux = "";
     $("#popup").fadeIn();
     overlay.setPosition(posicion);
     content.innerHTML = "";
@@ -133,11 +134,23 @@ function hacerCuandoSeleccione(that) {
     claves = claves.filter(item => item != "campaniaid");
     claves = claves.filter(item => item != "type");
     claves = claves.filter(item => item != "styleUrl");
+    if (propiedades.tipo == "batimetria") {
+      aux += '<form method="post" enctype="multipart/form-data">';
+      aux += '  <input class="d-none" value="' + propiedades.nombre + '" id="batim" name="batim">';
+      aux += '  </input>';
+      aux += '  <button type="submit" class="btn btn-success">';
+      aux += '  Descargar';
+      aux += '  </button>';
+      aux += '</form>';
+    }
+    claves = claves.filter(item => item != "tipo");
+    claves = claves.filter(item => item != "nombre");
     claves.forEach((clave) => {
       if (propiedades[clave] != "") {
         content.innerHTML += clave + ": " + propiedades[clave] + "<br>";
       }
     });
+    content.innerHTML += aux;
   }
 }
 
@@ -150,7 +163,6 @@ select.on('select', hacerCuandoSeleccione, this);
 //ojo que con toda la ruta del path se puede llegar a editar y descargar todos los datos del servidor
 function poligono(elementos) {
   elementos.forEach((elem) => {
-    console.log();
     var poligono = new ol.geom.Polygon([[
       ol.proj.transform([elem['W'], elem['N']], 'EPSG:4326', 'EPSG:3857'),
       ol.proj.transform([elem['E'], elem['N']], 'EPSG:4326', 'EPSG:3857'),
@@ -159,6 +171,14 @@ function poligono(elementos) {
       ol.proj.transform([elem['W'], elem['N']], 'EPSG:4326', 'EPSG:3857')
     ]]);
     var poligonoFeature = new ol.Feature(poligono);
+    poligonoFeature.setProperties({
+      'tipo': 'batimetria',
+      'W': elem['W'],
+      'E': elem['E'],
+      'N': elem['N'],
+      'S': elem['S'],
+      'nombre': elem['nombre']
+    });
     var vectorSourcePoligono = new ol.source.Vector({
       projection: 'EPSG:3857'
     });

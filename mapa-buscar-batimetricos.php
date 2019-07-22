@@ -1,6 +1,6 @@
 <?php
 require('templates/coneccion.php');
-$sql = mysqli_query($db, 'SELECT W,S,E,N,path FROM batimetrias');
+$sql = mysqli_query($db, 'SELECT W,S,E,N,nombre FROM batimetrias');
 $i = 0;
 $resultado = '[';
 if ($sql) {
@@ -14,7 +14,7 @@ if ($sql) {
             "S":' . $row['S'] . ',
             "E":' . $row['E'] . ',
             "N":' . $row['N'] . ',
-            "path":"' . $row['path'] . '"
+            "nombre":"' . $row['nombre'] . '"
         }';
     }
 }

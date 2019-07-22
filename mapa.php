@@ -6,6 +6,12 @@ $permiso = 0;
 
 require('templates/coneccion.php');
 
+if (isset($_REQUEST['batim'])) {
+    $batim = $_REQUEST['batim'];
+    header("Content-type: application/octet-stream");
+    header("Content-disposition: attachment; filename=batimetrias.pdf");
+    readfile("batimetrias/$batim.pdf");
+}
 if (isset($_REQUEST['desde']))
     $filtros_desde = $_REQUEST['desde'];
 if (isset($_REQUEST['hasta']))

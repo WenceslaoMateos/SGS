@@ -16,11 +16,11 @@ if (isset($_REQUEST['enviado']) && ($_REQUEST['enviado'] == "si")) {
     exec("mv '$filename'.pdf batimetrias/");
     exec("rm '$filename'.ps");
     exec("rm gmt.history");
-    $sql = mysqli_query($db, "  INSERT INTO batimetrias (W, S, E, N, path) 
+    $sql = mysqli_query($db, "  INSERT INTO batimetrias (W, S, E, N, nombre) 
                                 VALUES (" . $coordinates[0] . ",
                                     " . $coordinates[1] . ", 
                                     " . $coordinates[2] . ", 
-                                    " . $coordinates[3] . ", 'batimetrias/$filename.pdf');");
+                                    " . $coordinates[3] . ", '$filename');");
     header("Content-type: application/octet-stream");
     header("Content-disposition: attachment; filename=batimetria.pdf");
     readfile("batimetrias/$filename.pdf");
