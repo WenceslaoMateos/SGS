@@ -99,6 +99,7 @@ function changeVector() {
     format: new ol.format.KML({ extractStyles: false })
   }));
   vector.setStyle(styleFunction);
+  return link;
 };
 
 //Al terminar de moverse vuelve a buscar los puntos de los barcos.
@@ -137,7 +138,6 @@ function hacerCuandoSeleccione(that) {
     if (propiedades.tipo == "batimetria") {
       aux += '<form method="post" enctype="multipart/form-data">';
       aux += '  <input class="d-none" value="' + propiedades.nombre + '" id="batim" name="batim">';
-      aux += '  </input>';
       aux += '  <button type="submit" class="btn btn-success">';
       aux += '  Descargar';
       aux += '  </button>';
@@ -248,6 +248,13 @@ $(document).ready(function () {
     }
   });
   $("#aplicar").on('click', changeVector);
+  $("#exportar").on('click', () => {
+    var link = 'export.php?' + changeVector();
+    $.ajax({
+      type: "POST",
+      url: link,
+    });
+  });
   $('#barco').on('change', function () {
     var barco = $(this).val();
     if (barco) {

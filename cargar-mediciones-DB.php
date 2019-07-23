@@ -186,7 +186,6 @@ $username = "wence";
 $password = "wence";
 $dbname = "sgs";
 $conn = new mysqli($servername, $username, $password, $dbname);
-
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -199,14 +198,14 @@ $names = $_FILES['camp']['tmp_name'];
 $dbtables = $_FILES['camp']['name'];
 $fileTypes = $_FILES['camp']['type'];
 $formatos = $_FILES['formato']['tmp_name'];
-//print_r( $names);
+//print_r($dbtables);
 $tDatos = parsingTDatos($formatos);
 
 $m = count($names);
 
 //$conn->autocommit(FALSE);
 for ($k = 0; $k < $m; $k++) {
-    $fileType = $fileTypes[$k]; 
+    $fileType = $fileTypes[$k];
     //echo  "<br>" . $k . "<br>";
     if (strcasecmp($fileType, ".dat") != 0) {
         $name = $names[$k];
@@ -221,13 +220,13 @@ for ($k = 0; $k < $m; $k++) {
         $n = count($lineas);
         $j = 0;
         for ($i = 4; ($i < 100000) && ($i < $n); $i++) {
-            $arrayLinea = explode("\t", $lineas[$i]); 
+            $arrayLinea = explode("\t", $lineas[$i]);
             //echo $i . ' --- ';
             if (camposValidos($arrayLinea, $claves)) {
                 $time = date2when(trim($arrayLinea[$claves["Date"]]), trim($arrayLinea[$claves["Time"]]));
                 $latitud = GPS2degree(trim($arrayLinea[$claves["position latitude"]]));
-                $longitud = GPS2degree(trim($arrayLinea[$claves["position longitude"]]));     
-                
+                $longitud = GPS2degree(trim($arrayLinea[$claves["position longitude"]]));
+
                 //se genera el punto para despues poder indexar espacialmente por punto.
                 $geom = "'POINT($longitud $latitud)'";
                 $point = "GeomFromText($geom)";
@@ -266,7 +265,7 @@ for ($k = 0; $k < $m; $k++) {
                 }
                 $otros = substr($otros, 0, strlen($otros) - 1);
                 $otros .= '}';
-                
+
                 //Inserta el punto en la base de datos.
                 $sql = "INSERT INTO mediciones (datetime, longitud, latitud, punto , idcampania, otros) 
                         VALUES ('$time', $longitud, $latitud, $point , $campania, \"$otros\");";

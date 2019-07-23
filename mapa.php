@@ -12,6 +12,12 @@ if (isset($_REQUEST['batim'])) {
     header("Content-disposition: attachment; filename=batimetrias.pdf");
     readfile("batimetrias/$batim.pdf");
 }
+if (isset($_REQUEST['exportar'])) { 
+    header("Content-type: application/octet-stream");
+    header("Content-disposition: attachment; filename=data.csv");
+    readfile("templates/data.csv");
+    exec("rm templates/data.csv");
+}
 if (isset($_REQUEST['desde']))
     $filtros_desde = $_REQUEST['desde'];
 if (isset($_REQUEST['hasta']))
@@ -84,6 +90,12 @@ if (isset($_REQUEST['campania']))
                         </table>
                     </div>
                     <button type="submit" class="btn btn-primary ml-5 d-none" name="aplicar" value="aplicar" id="aplicar">Aplicar filtros</button>
+                </form>
+                <form method="post" enctype="multipart/form-data">
+                    <input class="d-none" value="" id="export" name="export">
+                    <button type="submit" class="btn btn-success" id="exportar" name="exportar">
+                        Exportar
+                    </button>
                 </form>
             </aside>
             <div class="container col-lg-8 col-md-8 col-sm-7">
